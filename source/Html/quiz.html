@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz do usuário</title>
+
+    <link rel="stylesheet" href="../Css/quiz.css">
+</head>
+
+<body>
+    <nav>
+        <a href="quiz.html">Quiz</a>
+        <a href="home.html">Home</a>        
+        <a href="historico.html">Histórico</a>
+        <a href="album.html">Álbum</a>
+    </nav>
+
+    <main class="container">
+        <section class="quiz">
+            <div class="titulo">
+                <h1>Quiz</h1>
+                <p>Vamos conhecer você e sua plantinha!</p>
+            </div>
+
+            <form>
+                <div class="pergunta">
+                    <label for="usuario">Como você gostaria de ser chamado?</label>
+                    <input type="text" id="usuario" placeholder="Digite seu nome">
+                </div>
+
+                <div class="pergunta">
+                    <label for="planta">Qual é o nome da sua planta?</label>
+                    <input type="text" id="planta" placeholder="Digite o nome da planta">
+                </div>
+
+                <div class="pergunta">
+                    <label for="tipo">Sua planta é de:</label>
+                    <select id="tipo">
+                        <option>Selecione</option>
+                        <option>Sol</option>
+                        <option>Sombra</option>
+                        <option>Meia sombra</option>
+                    </select>
+                </div>
+
+                <div class="pergunta">
+                    <label>Escolha um ícone para representar sua planta:</label>
+
+                    <div class="icones">
+                        <button type="button">🌱</button>
+                        <button type="button">🌵</button>
+                        <button type="button">🌷</button>
+                        <button type="button">🍀</button>
+                    </div>
+                </div>
+
+                <div class="pergunta">
+                    <label for="lugar">Onde sua planta fica?</label>
+
+                    <select id="lugar">
+                        <option>Selecione</option>
+                        <option>Dentro de casa</option>
+                        <option>Área externa</option>
+                        <option>Perto da janela</option>
+                    </select>
+                </div>
+
+                <div class="pergunta">
+                    <label for="rega">Com que frequência você costuma regar?</label>
+
+                    <select id="rega">
+                        <option>Selecione</option>
+                        <option>Todos os dias</option>
+                        <option>2 ou 3 vezes na semana</option>
+                        <option>Raramente</option>
+                    </select>
+                </div>
+
+                <button class="btn-iniciar" type="submit">Salvar</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
