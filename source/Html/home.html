@@ -12,7 +12,6 @@
 <body>
     <nav>
         <a href="quiz.html">Quiz</a>
-        <a href="home.html">Home</a>        
         <a href="historico.html">Histórico</a>
         <a href="album.html">Álbum</a>
     </nav>
@@ -20,38 +19,36 @@
     <main class="container">
         <section class="home">
             <div class="titulo">
-                <h1>Olá, Usuário!</h1>
+                <h1 id="nomeUsuario">!</h1>
                 <p>Veja como sua plantinha está hoje</p>
             </div>
 
             <section class="planta-status">
-                <div class="planta-icone">
-                    🌱
-                </div>
+                <div class="planta-icone" id="iconePlanta"></div>
 
-                <p class="fala-planta">
-                    "Minha umidade está ótima, temperatura boa e estou recebendo bastante luz"
-                </p>
+                <p class="fala-planta" id="falaPlanta"></p>
             </section>
 
             <section class="dados-sensores">
                 <div class="monitoramento">
                     <h3>Umidade</h3>
-                    <p>72%</p>
+                    <p id="umidade"></p>
                 </div>
 
                 <div class="monitoramento">
                     <h3>Temperatura</h3>
-                    <p>26°C</p>
+                    <p id="temperatura"></p>
                 </div>
 
                 <div class="monitoramento">
                     <h3>Luminosidade</h3>
-                    <p>Boa</p>
+                    <p id="luminosidade"></p>
                 </div>
             </section>
         </section>
     </main>
+
+    <script src="../Js/home.js"></script>    
 </body>
 
 </html>
