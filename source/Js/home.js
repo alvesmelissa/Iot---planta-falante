@@ -19,25 +19,25 @@ document.getElementById("luminosidade").textContent = luminosidade;
 let falar = "";
 
 if(umidade < 30){
-    fala = "Estou com sede! Quero àgua.";
+    falar = "Estou com sede! Quero àgua.";
 }
 else if(umidade >= 30 && umidade <= 70){
-    fala = "O clima está perfeito!"
+    falar = "O clima está perfeito!"
 }
 else if(umidade > 70){
-    fala = "Estou ficando muito molhada. Regue menos!"
+    falar = "Estou ficando muito molhada. Regue menos!"
 }
 else if(temperatura > 35){
-    fala = "Está com calor! Aqui está quente.";
+    falar = "Está com calor! Aqui está quente.";
 }
 else if(temperatura < 15){
-    fala = "O clima esfriou. Posso ficar resfriada."
+    falar = "O clima esfriou. Posso ficar resfriada."
 }
 else if(luminosidade === "Baixa"){
-    fala = "Preciso de mais sol!";
+    falar = "Preciso de mais sol!";
 }
 else if(luminosidade === "Alta"){
-    fala = "Estou queimando! Sol muito forte.";
+    falar = "Estou queimando! Sol muito forte.";
 }
 
 document.getElementById("falaPlanta").textContent = falar;
