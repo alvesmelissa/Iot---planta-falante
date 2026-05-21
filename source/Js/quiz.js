@@ -5,7 +5,7 @@ let iconeSelecionado="";
 
 icones.forEach(function(botao){
     botao.addEventListener("click", function(){
-        iconeSelecionado = botao.textContent;
+        iconeSelecionado = botao.querySelector("img").getAttribute("src");
         console.log("Ícone selecionado:");
         console.log(iconeSelecionado);
     });

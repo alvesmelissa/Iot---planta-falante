@@ -1,10 +1,13 @@
-const dadosSalvos = localStorage.getItem("dadosPlanta");
+const dadosSalvos =
+localStorage.getItem("dadosPlanta");
 
-const dadosPlanta = JSON.parse(dadosSalvos);
+const dadosPlanta =
+JSON.parse(dadosSalvos);
 
-document.getElementById("nomeUsuario").textContent = `Olá, ${dadosPlanta.usuario}!`;
+console.log(dadosPlanta.icone);
 
-document.getElementById("iconePlanta").textContent = dadosPlanta.icone;
+document.getElementById("iconePlanta").src =
+dadosPlanta.icone;
 
 
 // Valores para teste
