@@ -1,0 +1,13 @@
+.planta-icone{
+    display: flex;
+    justify-content: flex-start;
+
+    margin: 20px 0;
+}
+
+#iconePlanta{
+    width: 180px;
+    height: 180px;
+
+    object-fit: contain;
+}

@@ -11,7 +11,7 @@ dadosPlanta.icone;
 
 
 // Valores para teste
-let umidade = 10;
+let umidade = 30;
 let temperatura = 31;
 let luminosidade = "Alta";
 
