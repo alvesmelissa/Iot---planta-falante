@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="../Css/login.css">
+</head>
+
+<body>
+    <nav>
+        <a href="perfil.html">Perfil</a> 
+        <a href="home.html">Home</a>        
+        <a href="historico.html">Histórico</a>
+        <a href="album.html">Álbum</a>
+    </nav>
+
+
+    <main class="container">
+        <section class="login">
+            <div class="titulo">
+                <h1>Entrar</h1>
+
+                <p>Faça login para acessar sua plantinha virtual</p>
+            </div>
+
+            <form id="form-login">
+                <div class="campo">
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Digite seu e-mail"
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        placeholder="Digite sua senha"
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn-login"
+                >
+                    Entrar
+                </button>
+
+            </form>
+
+            <div class="cadastro">
+                <p>
+                    Ainda não fez o cadastro?
+                </p>
+
+                <a href="cadastro.html">
+                    Crie sua conta
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../Js/login.js"></script>
+</body>
+
+</html>

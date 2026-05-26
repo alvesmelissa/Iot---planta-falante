@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>perfil</title>
+    <title>Informacao Da Planta</title>
 
-    <link rel="stylesheet" href="../Css/quiz.css">
+    <link rel="stylesheet" href="../Css/perfil.css">
 </head>
 
 <body>
     <nav>
+        <a href="login.html">Login</a>
         <a href="home.html">Home</a>        
         <a href="historico.html">Histórico</a>
         <a href="album.html">Álbum</a>
@@ -25,11 +26,6 @@
 
             <form id="form-quiz">
                 <div class="pergunta">
-                    <label for="usuario">Como você gostaria de ser chamado?</label>
-                    <input type="text" id="usuario" placeholder="Digite seu nome">
-                </div>
-
-                <div class="pergunta">
                     <label for="planta">Qual é o nome da sua planta?</label>
                     <input type="text" id="planta" placeholder="Digite o nome da planta">
                 </div>
@@ -38,9 +34,9 @@
                     <label for="tipo">Sua planta é de:</label>
                     <select id="tipo">
                         <option value="">Selecione</option>
-                        <option value="sol">Sol</option>
-                        <option value="sombra">Sombra</option>
-                        <option value="meia-sombra">Meia sombra</option>
+                        <option value="SOL">Sol</option>
+                        <option value="SOMBRA">Sombra</option>
+                        <option value="SOMBRA">Meia sombra</option>
                     </select>
                 </div>
 
@@ -141,7 +137,7 @@
         </section>
     </main>
 
-    <script src="../Js/quiz.js"></script>    
+    <script src="../Js/perfil.js"></script>    
 </body>
 
 </html>
