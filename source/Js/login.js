@@ -25,7 +25,7 @@ form.addEventListener("submit", async function(event){
     try{
 
         const resposta = await fetch(
-            "http://localhost:8080/api/auth/login",
+            `${API_URL}/api/auth/login`,
 
             {
                 method: "POST",
@@ -58,7 +58,7 @@ form.addEventListener("submit", async function(event){
     }
 
     catch(erro){
-        console.log(erro);
+        console.error("Erro na API");
 
         alert("Erro na conexão com a API.");
     }

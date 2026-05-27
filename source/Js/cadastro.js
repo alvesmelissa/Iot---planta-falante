@@ -25,7 +25,7 @@ form.addEventListener("submit", async function(event){
     try{
 
         const resposta = await fetch(
-            "http://localhost:8080/api/auth/cadastro",
+            `${API_URL}/api/auth/cadastro`,
 
             {
                 method: "POST",

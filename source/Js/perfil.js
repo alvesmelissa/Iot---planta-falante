@@ -6,7 +6,7 @@ let iconeSelecionado = "";
 
 icones.forEach(function(botao){
     botao.addEventListener("click", function(){
-        iconeSelecionado = botao.querySelector("img").getAttribute("src");
+        iconeSelecionado = botao.dataset.planta;
         console.log("Ícone selecionado:");
         console.log(iconeSelecionado);
     });
@@ -38,8 +38,7 @@ form.addEventListener("submit", async function(event){
 
     try{
         const resposta = await fetch(
-            "http://localhost:8080/api/planta/configurar",
-
+            `${API_URL}/api/planta/configurar`,
             {
                 method: "POST",
 
@@ -55,7 +54,7 @@ form.addEventListener("submit", async function(event){
         );
 
         if(resposta.ok){
-            alert("Perfil da planta salvo com sucesso!");
+            alert("Salvo com sucesso!");
             console.log(dadosPerfil);            
 
             localStorage.setItem("dadosPlanta", JSON.stringify(dadosPerfil));
