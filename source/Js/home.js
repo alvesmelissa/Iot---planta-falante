@@ -1,88 +1,64 @@
-const dadosSalvos = localStorage.getItem("dadosPlanta");
+const token = localStorage.getItem("token");
 
-const dadosPlanta = JSON.parse(dadosSalvos);
+if(!token){
+    alert("Usuário não autenticado.");
+    
+    window.location.href = "login.html";
 
-console.log(dadosPlanta.icone);
-
-document.getElementById("iconePlanta").src = dadosPlanta.icone;
-
-let umidade = 0;
-let temperatura = 0;
-let luminosidade = "";
-
-function atualizarFala(){
-    let falar = "";
-
-    if(umidade < 30){
-        falar = "Estou com sede! Quero água.";
-    }
-
-    else if(umidade >= 30 && umidade <= 70){
-        falar = "O clima está perfeito!";
-    }
-
-    else if(umidade > 70){
-        falar = "Estou ficando encharcada. Regue menos!";
-    }
-
-    else if(temperatura > 35){
-        falar = "Estou com calor! Aqui está quente.";
-    }
-
-    else if(temperatura < 15){
-        falar = "O clima esfriou.";
-    }
-
-    else if(luminosidade === "Baixa"){
-        falar = "Preciso de mais sol.";
-    }
-
-    else if(luminosidade === "Alta"){
-        falar = "Estou me queimando no sol!";
-    }
-
-    document.getElementById("falaPlanta").textContent = falar;
+    return;
 }
 
-// MQTT
-const options = {
-    username: "SEU_USUARIO",
-    password: "SUA_SENHA"
-};
+async function carregarHome(){
+    try{
+        const resposta = await fetch(
+            `${API_URL}/api/monitoramento/home`,
+            {
+                method: "GET",
 
-const client = mqtt.connect(
-    "wss://SEU_HOST:8884/mqtt",
-    options
-);
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
 
+        if(!resposta.ok){
+            alert("Erro ao carregar dados.");
 
-client.on("connect", () => {
-    console.log("Conectado ao HiveMQ!");
-    client.subscribe("planta/umidade");
-    client.subscribe("planta/temperatura");
-    client.subscribe("planta/luminosidade");
-});
+            return;
+        }
 
+        const dados = await resposta.json();
 
-client.on("message", (topic, message) => {
-    const valor = message.toString();
+        document.getElementById("nomeUsuario").textContent = dados.nomeUsuario;
 
-    if(topic === "planta/umidade"){
-        umidade = Number(valor);
-        document.getElementById("umidade").innerText = umidade + "%";
+        let emocao_planta = "";
+
+        if(dados.humor === "FELIZ"){
+            emocao_planta = `../img/feliz/${dados.icone}muitofeliz.png`;
+        }
+
+        else{
+            emocao_planta = `../img/triste/${dados.icone}muitotriste.png`;
+        }
+
+        document.getElementById("iconePlanta").src = emocao_planta;
+
+        document.getElementById("umidade").innerText = dados.umidadeSolo + "%";
+
+        document.getElementById("temperatura").innerText = dados.temperatura + "°C";
+
+        document.getElementById("luminosidade").innerText = dados.luminosidade;
+
+        document.getElementById("falaPlanta").textContent = dados.alerta;
+
     }
 
+    catch(erro){
+        console.log(erro);
 
-    if(topic === "planta/temperatura"){
-        temperatura = Number(valor);
-        document.getElementById("temperatura").innerText = temperatura + "°C";
+        alert("Erro na conexão com a API.");
     }
 
+}
 
-    if(topic === "planta/luminosidade"){
-        luminosidade = valor;
-        document.getElementById("luminosidade").innerText = luminosidade;
-    }
-
-    atualizarFala();
-});
+carregarHome();
