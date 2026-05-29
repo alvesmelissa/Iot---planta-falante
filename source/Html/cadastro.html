@@ -4,83 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>PlantCare - Criar Conta</title>
 
     <link rel="stylesheet" href="../Css/cadastro.css">
 </head>
-
 <body>
 
-    <nav>
-        <a href="perfil.html">Perfil</a> 
-        <a href="home.html">Home</a>        
-        <a href="historico.html">Histórico</a>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-leaf logo-icone"></i>
+            <span class="logo-texto">PlantCare</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <a href="home.html"><i class="fa-solid fa-house"></i> Home</a> 
+            <a href="historico.html"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
+            <a href="perfil.html"><i class="fa-solid fa-seedling"></i> Perfil de planta</a>
+        </div>
     </nav>
 
-    <main class="container">
+    <main class="conteudo-principal">
 
         <section class="cadastro">
-
             <div class="titulo">
                 <h1>Criar Conta</h1>
-
-                <p>
-                    Cadastre-se para cuidar da sua plantinha
-                </p>
+                <p>Cadastre-se para cuidar da sua plantinha</p>
             </div>
 
             <form id="form-cadastro">
-
                 <div class="campo">
-                    <label for="email">
-                        E-mail
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Digite seu e-mail"
-                    >
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="Digite seu e-mail">
                 </div>
 
                 <div class="campo">
-                    <label for="senha">
-                        Senha
-                    </label>
-
-                    <input
-                        type="password"
-                        id="senha"
-                        placeholder="Digite sua senha"
-                    >
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha">
                 </div>
 
-                <button
-                    type="submit"
-                    class="btn-cadastro"
-                >
-                    Criar Conta
-                </button>
-
+                <button type="submit" class="btn-cadastro">Criar Conta</button>
             </form>
 
             <div class="login">
-                <p>
-                    Já possui conta?
-                </p>
-
-                <a href="login.html">
-                    Fazer login
-                </a>
+                <p>Já possui conta?</p>
+                <a href="login.html">Fazer login</a>
             </div>
-
         </section>
 
     </main>
 
-    <script src="../Js/config.js"></script>
+    <script src="../Js/configuracao.js"></script>
     <script src="../Js/cadastro.js"></script>
-
 </body>
-
 </html>
