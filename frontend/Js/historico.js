@@ -1,69 +1,71 @@
+const token = localStorage.getItem("token");
+
+if(!token){
+    alert("Usuário não autenticado.");
+
+    window.location.href = "login.html";
+
+    return;
+}
+
 const areaHistorico = document.getElementById("registros-historico");
 
-let umidade = 50;
-let temperatura = 27;
-let luminosidade = "Boa";
+async function carregarHistorico(){
+    try{
+        const resposta = await fetch(
+            `${API_URL}/api/monitoramento/eventos`,
+            {
+                method: "GET",
 
-const dataAtual = new Date();
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
 
-const dia = String(dataAtual.getDate()).padStart(2, "0");
-const mes = String(dataAtual.getMonth() + 1).padStart(2, "0");
-const ano = dataAtual.getFullYear();
+        if(!resposta.ok){
+            alert("Erro ao carregar histórico.");
 
-const dataFormato = `${dia}/${mes}/${ano}`;
+            return;
+        }
 
-const registroDia = {
-    data: dataFormato,
-    umidade: `${umidade}%`,
-    temperatura: `${temperatura}°C`,
-    luminosidade: luminosidade
-};
+        const historico = await resposta.json();
 
-let historicoSalvo = localStorage.getItem("historicoPlanta");
+        areaHistorico.innerHTML = "";
 
-let historico = [];
+        historico.forEach(function(registro){
+            const card = document.createElement("div");
 
-if(historicoSalvo){
-    historico = JSON.parse(historicoSalvo);
+            card.classList.add("dia");
+
+            const dataFormatada = new Date(registro.dataHora).toLocaleString("pt-BR");
+
+            card.innerHTML = `
+                <div class="data">${dataFormatada}</div>
+
+                <ul>
+                    <li>
+                        Evento: ${registro.tipoEvento}
+                    </li>
+
+                    <li>
+                        Descrição: ${registro.descricao}
+                    </li>
+                </ul>
+            `;
+
+            areaHistorico.appendChild(card);
+
+        });
+
+    }
+
+    catch(erro){
+        console.log(erro);
+
+        alert("Erro na conexão com a API.");
+    }
+
 }
 
-let diaJaExiste = false;
-
-historico.forEach(function(registro){
-    if(registro.data === dataFormato){
-        diaJaExiste = true;}
-});
-
-if(diaJaExiste === false){
-    historico.push(registroDia);
-    localStorage.setItem("historicoPlanta", JSON.stringify(historico));
-}
-
-historico.forEach(function(registro){
-    const card = document.createElement("div");
-    card.classList.add("dia");
-
-    card.innerHTML = `
-        <div class="data">
-            ${registro.data}
-        </div>
-
-        <ul>
-            <li>
-                Umidade:
-                ${registro.umidade}
-            </li>
-
-            <li>
-                Temperatura:
-                ${registro.temperatura}
-            </li>
-
-            <li>
-                Luminosidade:
-                ${registro.luminosidade}
-            </li>
-        </ul>`;
-
-    areaHistorico.appendChild(card);
-});
+carregarHistorico();
