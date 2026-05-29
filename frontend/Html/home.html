@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantCare</title>
+
+    <link rel="stylesheet" href="../Css/home.css">
+
+    <!-- Ícones -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-leaf"></i>
+            <h2>PlantCare</h2>
+        </div>
+
+        <button class="btn-planta">
+            <i class="fa-solid fa-plus"></i>
+            Adicionar Planta
+        </button>
+
+        <nav class="menu">
+
+            <a href="#" class="ativo">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a href="historico.html">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                Histórico
+            </a>
+
+            <a href="perfil.html">
+                <i class="fa-solid fa-seedling"></i>
+                Perfil de planta
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="container">
+
+        <!-- TOPO -->
+        <header class="topo">
+
+            <div class="planta-select">
+                <img src="../img/feliz/cactomuitofeliz.png" alt="Cacto" id="iconePequeno">
+                <span id="nomePlantaTopo">Meu Cacto</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+
+            <div class="perfil-topo">
+
+                <div class="notificacao">
+                    <i class="fa-regular fa-bell"></i>
+                    <span>2</span>
+                </div>
+
+                <!-- Ícone de perfil clicável - Redireciona para cadastro -->
+                <div class="foto-perfil-container" id="perfilContainer" style="cursor: pointer;" title="Ir para cadastro">
+                    <img src="../img/icones/perfil.png" alt="Perfil" class="foto-perfil" id="fotoPerfil">
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- CARDS DOS SENSORES -->
+        <section class="cards-sensores">
+
+            <!-- LUZ (BH1750) -->
+            <div class="card-sensor">
+
+                <div class="icone-card luz">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+
+                <div class="conteudo-card">
+                    <h3>Luz</h3>
+
+                    <div class="valor">
+                        <span id="luminosidade">320</span>
+                        <small>lux</small>
+                    </div>
+
+                    <p class="status alerta" id="luzStatus">Baixa</p>
+
+                    <div class="barra">
+                        <div class="progresso amarelo"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- UMIDADE SOLO (Sensor Capacitivo) -->
+            <div class="card-sensor">
+
+                <div class="icone-card agua">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+
+                <div class="conteudo-card">
+                    <h3>Umidade do solo</h3>
+
+                    <div class="valor">
+                        <span id="umidadeSolo">18</span>
+                        <small>%</small>
+                    </div>
+
+                    <p class="status perigo" id="soloStatus">Muito baixa</p>
+
+                    <div class="barra">
+                        <div class="progresso vermelho"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TEMPERATURA (DHT22) -->
+            <div class="card-sensor">
+
+                <div class="icone-card temp">
+                    <i class="fa-solid fa-temperature-half"></i>
+                </div>
+
+                <div class="conteudo-card">
+                    <h3>Temperatura</h3>
+
+                    <div class="valor">
+                        <span id="temperatura">28</span>
+                        <small>°C</small>
+                    </div>
+
+                    <p class="status ideal" id="tempStatus">Ideal</p>
+
+                    <div class="barra">
+                        <div class="progresso verde"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- UMIDADE DO AR (DHT22) -->
+            <div class="card-sensor">
+
+                <div class="icone-card ar">
+                    <i class="fa-solid fa-cloud"></i>
+                </div>
+
+                <div class="conteudo-card">
+                    <h3>Umidade do ar</h3>
+
+                    <div class="valor">
+                        <span id="umidadeAr">62</span>
+                        <small>%</small>
+                    </div>
+
+                    <p class="status ideal" id="umidadeArStatus">Boa</p>
+
+                    <div class="barra">
+                        <div class="progresso azul"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <section class="conteudo-principal">
+
+            <!-- ÁREA DA PLANTA (com balão de fala) -->
+            <div class="painel-planta">
+
+                <!-- BALÃO DE FALA (TEXTO DINÂMICO) -->
+                <div class="fala">
+                    <p id="falaPlanta">🌵 Faz tanto tempo que não bebo água... Me regue por favor!</p>
+                </div>
+
+                <!-- IMAGEM DA PLANTA (TROCA ENTRE FELIZ/TRISTE) -->
+                <img src="../img/feliz/cactomuitofeliz.png"
+                    alt="Planta"
+                    id="iconePlanta"
+                    class="imagem-planta">
+
+            </div>
+
+            <!-- RESUMO DA SEMANA -->
+            <aside class="resumo">
+
+                <div class="titulo-resumo">
+                    <h3>Resumo da semana</h3>
+                    <a href="historico.html">Ver histórico</a>
+                </div>
+
+                <div class="lista-resumo" id="listaResumo">
+                    <div class="item-resumo">
+                        <span>Seg</span>
+                        <p class="amarelo-texto">Atenção</p>
+                    </div>
+                    <div class="item-resumo">
+                        <span>Ter</span>
+                        <p class="vermelho-texto">Sede</p>
+                    </div>
+                    <div class="item-resumo">
+                        <span>Qua</span>
+                        <p class="amarelo-texto">Atenção</p>
+                    </div>
+                    <div class="item-resumo">
+                        <span>Qui</span>
+                        <p class="verde-texto">Bem</p>
+                    </div>
+                    <div class="item-resumo">
+                        <span>Sex</span>
+                        <p class="verde-texto">Excelente</p>
+                    </div>
+                </div>
+
+            </aside>
+
+        </section>
+
+        <!-- SAÚDE DA PLANTA -->
+        <section class="saude">
+
+            <div class="titulo-saude">
+                <i class="fa-solid fa-heart"></i>
+                <h3>Linha da saúde</h3>
+            </div>
+
+            <div class="porcentagem" id="porcentagemSaude">65%</div>
+
+            <div class="barra-saude">
+                <div class="nivel-saude" id="barraSaude"></div>
+            </div>
+
+            <div class="labels-saude">
+                <span>Crítica</span>
+                <span>Atenção</span>
+                <span>Boa</span>
+                <span>Excelente</span>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/home.js"></script>
+
+    
+
+</body>
+
+</html>
