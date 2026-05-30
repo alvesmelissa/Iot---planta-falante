@@ -4,8 +4,6 @@ if(!token){
     alert("Usuário não autenticado.");
 
     window.location.href = "login.html";
-
-    return;
 }
 
 const areaHistorico = document.getElementById("registros-historico");
