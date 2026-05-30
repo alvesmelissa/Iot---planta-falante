@@ -1,179 +1,254 @@
-/* --- Configurações Globais --- */
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #e8f5e9; /* O verde claro de fundo da sua paleta */
-    color: #333333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    display: flex;
     min-height: 100vh;
-    display: flex; /* Faz a barra lateral e o conteúdo ficarem lado a lado */
 }
 
-/* --- Barra de Navegação Lateral --- */
+/* =========================
+   SIDEBAR
+========================= */
 .sidebar {
-    background-color: #1a3a2b; /* O verde escuro oficial do menu */
-    width: 260px;
-    height: 100vh;
-    position: fixed; /* Prende a barra na esquerda */
+    width: 280px;
+    background: #1a3a2b;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 24px;
+    position: fixed;
     left: 0;
     top: 0;
-    padding: 2rem 1.2rem;
-    display: flex;
-    flex-direction: column; /* Coloca a logo e os links um embaixo do outro */
-    gap: 2rem;
+    bottom: 0;
 }
 
-/* Bloco do Título da Logo */
-.sidebar-header {
+.logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: #ffffff;
-    font-size: 1.4rem;
-    font-weight: bold;
+    gap: 12px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Lista de Links */
-.sidebar-menu {
+.logo i {
+    font-size: 28px;
+    color: #4caf50;
+}
+
+.logo h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+}
+
+.menu {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.sidebar-menu a {
-    color: rgba(255, 255, 255, 0.7); /* Branco meio transparente para os inativos */
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 12px 15px;
-    border-radius: 8px;
-    transition: all 0.3s;
-}
-
-/* Quando passa o mouse por cima do link */
-.sidebar-menu a:hover {
-    background-color: #2e7d32; /* O verde médio da sua paleta */
-    color: #ffffff;
-}
-
-/* --- Área do Conteúdo Principal (Onde fica o Card) --- */
-.conteudo-principal {
-    flex: 1;
-    margin-left: 260px; /* Empurra essa área para a direita para não sumir atrás do menu */
+.menu a {
     display: flex;
-    justify-content: center; /* Centraliza o card na horizontal */
-    align-items: center;     /* Centraliza o card na vertical */
-    padding: 2rem;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s;
+    font-size: 15px;
 }
 
-/* --- Cartão de Cadastro --- */
+.menu a:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.menu a.ativo {
+    background: #2e7d32;
+    color: white;
+}
+
+.menu a i {
+    width: 22px;
+    font-size: 18px;
+}
+
+/* =========================
+   CONTEÚDO
+========================= */
+.container {
+    flex: 1;
+    margin-left: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+/* =========================
+   CARD CADASTRO
+========================= */
 .cadastro {
-    background-color: #ffffff;
-    padding: 3rem 2.5rem;
-    border-radius: 16px; /* Cantos arredondados suaves igual à Home */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); /* Sombra bem leve da Home */
+    background: white;
     width: 100%;
-    max-width: 440px;
+    max-width: 480px;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* --- Títulos do Card --- */
 .titulo {
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 30px;
 }
 
 .titulo h1 {
-    color: #333333;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
+    font-size: 32px;
+    color: #1a3a2b;
+    margin-bottom: 8px;
 }
 
 .titulo p {
-    color: #666666;
-    font-size: 0.95rem;
+    color: #666;
+    font-size: 15px;
 }
 
-/* --- Formulário e Campos de Texto --- */
+/* =========================
+   FORMULÁRIO
+========================= */
 #form-cadastro {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 18px;
 }
 
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 8px;
 }
 
 .campo label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #666666;
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .campo input {
-    padding: 0.85rem 1rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.3s;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: 0.3s;
 }
 
-/* Quando clica no input para digitar */
 .campo input:focus {
-    border-color: #2e7d32; /* Borda verde médio */
+    outline: none;
+    border-color: #2e7d32;
 }
 
-/* --- Botão "Criar Conta" --- */
+/* =========================
+   BOTÃO
+========================= */
 .btn-cadastro {
-    background-color: #2e7d32; /* Verde médio oficial */
+    background: #2e7d32;
     color: white;
     border: none;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    margin-top: 0.5rem;
+    transition: 0.3s;
+    margin-top: 8px;
 }
 
 .btn-cadastro:hover {
-    background-color: #1a3a2b; /* Escurece para o verde escuro no hover */
+    background: #1a3a2b;
 }
 
-.btn-cadastro:active {
-    transform: scale(0.98);
-}
-
-/* --- Link "Fazer login" --- */
-.login {
+/* =========================
+   LINK LOGIN
+========================= */
+.login-link {
+    margin-top: 25px;
     text-align: center;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-    border-top: 1px solid #f0f0f0;
-    padding-top: 1.5rem;
 }
 
-.login p {
-    color: #666666;
+.login-link p {
     display: inline;
-    margin-right: 0.3rem;
+    color: #666;
 }
 
-.login a {
+.login-link a {
+    margin-left: 5px;
     color: #2e7d32;
     text-decoration: none;
     font-weight: 600;
 }
 
-.login a:hover {
+.login-link a:hover {
     text-decoration: underline;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 70px;
+        padding: 20px 12px;
+    }
+
+    .logo h2 {
+        display: none;
+    }
+
+    .menu a {
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .menu a i {
+        margin: 0;
+    }
+
+    .menu a {
+        font-size: 0;
+    }
+
+    .container {
+        margin-left: 70px;
+        padding: 20px;
+    }
+
+    .cadastro {
+        padding: 30px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    .cadastro {
+        padding: 25px 20px;
+    }
+
+    .titulo h1 {
+        font-size: 28px;
+    }
 }

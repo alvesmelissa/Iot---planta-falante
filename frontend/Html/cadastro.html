@@ -7,24 +7,46 @@
     <title>PlantCare - Criar Conta</title>
 
     <link rel="stylesheet" href="../Css/cadastro.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
 
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <i class="fa-solid fa-leaf logo-icone"></i>
-            <span class="logo-texto">PlantCare</span>
-        </div>
+<aside class="sidebar">
 
-        <div class="sidebar-menu">
-            <a href="home.html"><i class="fa-solid fa-house"></i> Home</a> 
-            <a href="historico.html"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
-            <a href="perfil.html"><i class="fa-solid fa-seedling"></i> Perfil de planta</a>
-        </div>
+    <div class="logo">
+        <i class="fa-solid fa-leaf"></i>
+        <h2>PlantCare</h2>
+    </div>
+
+    <nav class="menu">
+
+        <a href="home.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a href="historico.html">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Histórico
+        </a>
+
+        <a href="perfil.html">
+            <i class="fa-solid fa-seedling"></i>
+            Perfil de planta
+        </a>
+
+        <a href="login.html" class="ativo">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Cadastro
+        </a>
+
     </nav>
+</aside>
 
-    <main class="conteudo-principal">
-
+    <main class="container">
         <section class="cadastro">
             <div class="titulo">
                 <h1>Criar Conta</h1>
@@ -45,7 +67,7 @@
                 <button type="submit" class="btn-cadastro">Criar Conta</button>
             </form>
 
-            <div class="login">
+            <div class="login-link">
                 <p>Já possui conta?</p>
                 <a href="login.html">Fazer login</a>
             </div>
