@@ -7,25 +7,61 @@
     <title>Login</title>
 
     <link rel="stylesheet" href="../Css/login.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
-    <nav>
-        <a href="perfil.html">Perfil</a> 
-        <a href="home.html">Home</a>        
-        <a href="historico.html">Histórico</a>
+
+    <!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <i class="fa-solid fa-leaf"></i>
+        <h2>PlantCare</h2>
+    </div>
+
+    <nav class="menu">
+
+        <a href="home.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a href="historico.html">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Histórico
+        </a>
+
+        <a href="perfil.html">
+            <i class="fa-solid fa-seedling"></i>
+            Perfil de planta
+        </a>
+
+        <a href="login.html" class="ativo">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login
+        </a>
+
     </nav>
 
-
+</aside>
+    <!-- CONTEÚDO -->
     <main class="container">
+
         <section class="login">
+
             <div class="titulo">
                 <h1>Entrar</h1>
 
-                <p>Faça login para acessar sua plantinha virtual</p>
+                <p>
+                    Faça login para acessar sua plantinha virtual
+                </p>
             </div>
 
             <form id="form-login">
+
                 <div class="campo">
                     <label for="email">
                         E-mail
@@ -60,13 +96,15 @@
             </form>
 
             <div class="cadastro">
+
                 <p>
-                    Ainda não fez o cadastro?
+                    Ainda não possui conta?
                 </p>
 
                 <a href="cadastro.html">
-                    Crie sua conta
+                    Criar conta
                 </a>
+
             </div>
 
         </section>
@@ -75,6 +113,7 @@
 
     <script src="../Js/configuracao.js"></script>
     <script src="../Js/login.js"></script>
+
 </body>
 
 </html>
