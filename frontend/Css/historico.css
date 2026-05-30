@@ -1,0 +1,210 @@
+/* =========================
+   RESET
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#f5f7fa;
+    display:flex;
+    min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar{
+    width:280px;
+    background:#1a3a2b;
+    color:white;
+    padding:30px 24px;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:40px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.logo i{
+    font-size:28px;
+    color:#4caf50;
+}
+
+.logo h2{
+    font-size:22px;
+    font-weight:600;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.menu a{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px 16px;
+    color:rgba(255,255,255,.7);
+    text-decoration:none;
+    border-radius:12px;
+    transition:.3s;
+    font-size:15px;
+}
+
+.menu a:hover{
+    background:rgba(255,255,255,.1);
+    color:white;
+}
+
+.menu a.ativo{
+    background:#2e7d32;
+    color:white;
+}
+
+.menu a i{
+    width:22px;
+    font-size:18px;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+    flex:1;
+    margin-left:280px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+/* =========================
+   CARD HISTÓRICO
+========================= */
+
+.historico{
+    background:white;
+    width:100%;
+    max-width:800px;
+    padding:40px;
+    border-radius:24px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+.titulo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.titulo h1{
+    color:#333;
+    margin-bottom:10px;
+}
+
+.titulo p{
+    color:#777;
+}
+
+/* =========================
+   REGISTROS
+========================= */
+
+.registros{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+/* Cada registro adicionado pelo JS */
+
+.registro{
+    background:#f8f9fa;
+    border-left:5px solid #2e7d32;
+    padding:16px;
+    border-radius:12px;
+}
+
+.registro h3{
+    color:#1a3a2b;
+    margin-bottom:8px;
+}
+
+.registro p{
+    color:#666;
+    line-height:1.5;
+}
+
+.registro small{
+    display:block;
+    margin-top:8px;
+    color:#999;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width:768px){
+
+    .sidebar{
+        width:70px;
+        padding:20px 12px;
+    }
+
+    .logo h2{
+        display:none;
+    }
+
+    .menu a{
+        justify-content:center;
+        font-size:0;
+        padding:12px;
+    }
+
+    .menu a i{
+        margin:0;
+    }
+
+    .container{
+        margin-left:70px;
+        padding:20px;
+    }
+
+    .historico{
+        padding:30px 25px;
+    }
+}
+
+@media (max-width:480px){
+
+    .container{
+        padding:15px;
+    }
+
+    .historico{
+        padding:25px 20px;
+    }
+
+    .titulo h1{
+        font-size:28px;
+    }
+}

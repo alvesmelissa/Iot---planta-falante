@@ -35,7 +35,7 @@ async function carregarHome() {
         } 
         
         else {
-            emocao_planta = `../img/triste/${dados.icone}muitotriste.png`;
+            emocao_planta = `../img/triste/${dados.icone}triste.png`;
         }
 
         document.getElementById("iconePlanta").src = emocao_planta;
@@ -58,3 +58,7 @@ async function carregarHome() {
 }
 
 carregarHome();
+
+document.getElementById("btnAdicionarPlanta").addEventListener("click", () => {
+    window.location.href = "perfil.html";
+});
