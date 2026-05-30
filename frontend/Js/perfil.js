@@ -1,3 +1,11 @@
+const token = localStorage.getItem("token");
+
+if(!token){
+    alert("Usuário não autenticado.");
+
+    window.location.href = "login.html";
+}
+
 const form = document.getElementById("form-quiz");
 
 const icones = document.querySelectorAll(".icone");
