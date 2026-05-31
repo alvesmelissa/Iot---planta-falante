@@ -1,66 +1,415 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>historico</title>
 
-    <link rel="stylesheet" href="../Css/historico.css">
+```
+<meta charset="UTF-8">
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Histórico</title>
+
+<link
+    rel="stylesheet"
+    href="../Css/historico.css"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+```
 
 </head>
 
 <body>
-    <!-- SIDEBAR -->
+
+```
+<!-- SIDEBAR -->
+
 <aside class="sidebar">
 
     <div class="logo">
+
         <i class="fa-solid fa-leaf"></i>
+
         <h2>PlantCare</h2>
+
     </div>
+
+    <button
+        class="btn-planta"
+        id="btnAdicionarPlanta"
+    >
+
+        <i class="fa-solid fa-plus"></i>
+
+        Adicionar Planta
+
+    </button>
 
     <nav class="menu">
 
         <a href="home.html">
+
             <i class="fa-solid fa-house"></i>
+
             Home
+
         </a>
 
-        <a href="historico.html" class="ativo">
+        <a
+            href="historico.html"
+            class="ativo"
+        >
+
             <i class="fa-solid fa-clock-rotate-left"></i>
+
             Histórico
+
         </a>
 
         <a href="perfil.html">
+
             <i class="fa-solid fa-seedling"></i>
+
             Perfil de planta
+
         </a>
 
         <a href="login.html">
+
             <i class="fa-solid fa-right-to-bracket"></i>
+
             Login
+
         </a>
 
     </nav>
 
 </aside>
-    
-    <main class="container">
-        <section class="historico">
-            <div class="titulo">
-                <h1>Histórico da planta</h1>
-                <p>Acompanhe as mudanças e evolução da sua plantinha!</p>
-            </div>
-            
-            <section class="registros" id="registros-historico"></section>
-        </section>            
-    </main>
 
-    <script src="../Js/configuracao.js"></script>
-    <script src="../Js/historico.js"></script>
+<!-- CONTEÚDO -->
+
+<main class="container">
+
+    <!-- TOPO -->
+
+    <header class="topo">
+
+        <div
+            class="planta-select"
+            id="plantaSelect"
+        >
+
+            <img
+                src="../img/feliz/cactomuitofeliz.png"
+                alt="Planta"
+                id="iconePequeno"
+            >
+
+            <span id="nomePlantaTopo">
+
+                Minha Planta
+
+            </span>
+
+            <i class="fa-solid fa-chevron-down"></i>
+
+            <!-- DROPDOWN -->
+
+            <div
+                class="dropdown-plantas"
+                id="dropdownPlantas"
+            >
+
+                <div class="dropdown-header">
+
+                    Suas plantas
+
+                </div>
+
+                <div id="listaPlantas">
+
+                </div>
+
+                <button
+                    id="btnNovaPlanta"
+                    class="btn-dropdown"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Adicionar planta
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="perfil-topo">
+
+            <div class="notificacao">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span>2</span>
+
+            </div>
+
+            <div
+                class="foto-perfil-container"
+                title="Perfil"
+            >
+
+                <img
+                    src="../img/icones/perfil.png"
+                    alt="Perfil"
+                    class="foto-perfil"
+                >
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- CABEÇALHO -->
+
+    <section class="cabecalho-historico">
+
+        <div>
+
+            <h1>
+
+                Histórico da Planta
+
+            </h1>
+
+            <p>
+
+                Acompanhe tudo que aconteceu com sua planta.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- RESUMO -->
+
+    <section class="cards-resumo">
+
+        <div class="card-resumo">
+
+            <div class="icone-resumo feliz">
+
+                😊
+
+            </div>
+
+            <div>
+
+                <h3>Dias Bons</h3>
+
+                <strong id="diasBons">
+
+                    --
+
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="card-resumo">
+
+            <div class="icone-resumo atencao">
+
+                😐
+
+            </div>
+
+            <div>
+
+                <h3>Atenção</h3>
+
+                <strong id="diasAtencao">
+
+                    --
+
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="card-resumo">
+
+            <div class="icone-resumo ruim">
+
+                😟
+
+            </div>
+
+            <div>
+
+                <h3>Dias Difíceis</h3>
+
+                <strong id="diasRuins">
+
+                    --
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- GRID -->
+
+    <section class="grid-principal">
+
+        <!-- HUMOR -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <i class="fa-solid fa-face-smile"></i>
+
+                <h2>Humor da Semana</h2>
+
+            </div>
+
+            <div
+                class="humor-semana"
+                id="humorSemana"
+            >
+
+                <div class="estado-vazio">
+
+                    <i class="fa-solid fa-seedling"></i>
+
+                    <h3>
+
+                        Sem histórico disponível
+
+                    </h3>
+
+                    <p>
+
+                        Ainda não existem registros suficientes.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SAÚDE -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <i class="fa-solid fa-heart"></i>
+
+                <h2>Saúde Média</h2>
+
+            </div>
+
+            <div class="saude-container">
+
+                <div
+                    class="porcentagem-saude"
+                    id="porcentagemSaude"
+                >
+
+                    --
+
+                </div>
+
+                <div class="barra-saude">
+
+                    <div
+                        class="progresso-saude"
+                        id="barraSaude"
+                    ></div>
+
+                </div>
+
+                <p
+                    class="texto-saude"
+                    id="textoSaude"
+                >
+
+                    Ainda não há dados suficientes.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- TIMELINE -->
+
+    <section class="card timeline-card">
+
+        <div class="card-header">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <h2>Linha do Tempo</h2>
+
+        </div>
+
+        <div
+            id="timeline"
+            class="timeline"
+        >
+
+            <div class="estado-vazio">
+
+                <i class="fa-solid fa-seedling"></i>
+
+                <h3>
+
+                    Nenhum evento registrado
+
+                </h3>
+
+                <p>
+
+                    Os acontecimentos da sua planta aparecerão aqui.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script src="../Js/configuracao.js"></script>
+
+<script src="../Js/historico.js"></script>
+```
+
 </body>
 
 </html>
