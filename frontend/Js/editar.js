@@ -16,6 +16,128 @@ const icones =
 let iconeSelecionado = "";
 
 // ==============================
+// CARREGAR DADOS DA PLANTA
+// ==============================
+
+async function carregarPlanta() {
+
+    const idPlanta =
+        localStorage.getItem("idPlanta");
+
+    if (!idPlanta) {
+
+        console.log(
+            "Nenhuma planta encontrada."
+        );
+
+        return;
+    }
+
+    try {
+
+        const resposta =
+            await fetch(
+                `${API_URL}/api/planta/${idPlanta}`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+        if (!resposta.ok) {
+
+            console.log(
+                "Erro ao carregar planta."
+            );
+
+            return;
+        }
+
+        const planta =
+            await resposta.json();
+
+        console.log(
+            "Dados da planta:"
+        );
+
+        console.log(planta);
+
+        // Nome da planta
+
+        document
+            .getElementById("planta")
+            .value =
+            planta.nomePlanta || "";
+
+        // Tipo ambiente
+
+        document
+            .getElementById("tipo")
+            .value =
+            planta.tipoAmbiente || "";
+
+        // Ícone
+
+        iconeSelecionado =
+            planta.icone || "";
+
+        icones.forEach(botao => {
+
+            if (
+                botao.dataset.planta ===
+                planta.icone
+            ) {
+
+                botao.classList.add(
+                    "selecionado"
+                );
+
+            }
+
+        });
+
+        // Campos extras
+        // Ainda não existem no backend
+
+        const dadosExtras =
+            JSON.parse(
+                localStorage.getItem(
+                    "dadosExtrasPlanta"
+                )
+            );
+
+        if (dadosExtras) {
+
+            document
+                .getElementById("lugar")
+                .value =
+                dadosExtras.lugar || "";
+
+            document
+                .getElementById("rega")
+                .value =
+                dadosExtras.frequenciaRega || "";
+
+        }
+
+    }
+
+    catch (erro) {
+
+        console.error(
+            "Erro ao carregar planta:",
+            erro
+        );
+
+    }
+
+}
+
+// ==============================
 // SELEÇÃO DE ÍCONE
 // ==============================
 
@@ -24,10 +146,14 @@ icones.forEach(botao => {
     botao.addEventListener("click", () => {
 
         icones.forEach(i => {
-            i.classList.remove("selecionado");
+            i.classList.remove(
+                "selecionado"
+            );
         });
 
-        botao.classList.add("selecionado");
+        botao.classList.add(
+            "selecionado"
+        );
 
         iconeSelecionado =
             botao.dataset.planta;
@@ -42,7 +168,7 @@ icones.forEach(botao => {
 });
 
 // ==============================
-// SALVAR PERFIL
+// SALVAR ALTERAÇÕES
 // ==============================
 
 form.addEventListener(
@@ -72,10 +198,6 @@ form.addEventListener(
                 .getElementById("rega")
                 .value;
 
-        // --------------------------
-        // VALIDAÇÕES
-        // --------------------------
-
         if (!nomePlanta) {
 
             alert(
@@ -103,9 +225,19 @@ form.addEventListener(
             return;
         }
 
-        // --------------------------
-        // DADOS PARA O BACKEND
-        // --------------------------
+        const idPlanta =
+            localStorage.getItem(
+                "idPlanta"
+            );
+
+        if (!idPlanta) {
+
+            alert(
+                "ID da planta não encontrado."
+            );
+
+            return;
+        }
 
         const dadosBackend = {
 
@@ -114,10 +246,6 @@ form.addEventListener(
             tipoAmbiente
 
         };
-
-        // --------------------------
-        // DADOS EXTRAS
-        // --------------------------
 
         const dadosExtras = {
 
@@ -130,9 +258,9 @@ form.addEventListener(
 
             const resposta =
                 await fetch(
-                    `${API_URL}/api/planta/configurar`,
+                    `${API_URL}/api/planta/${idPlanta}/configurar`,
                     {
-                        method: "POST",
+                        method: "PATCH",
 
                         headers: {
 
@@ -148,6 +276,7 @@ form.addEventListener(
                             JSON.stringify(
                                 dadosBackend
                             )
+
                     }
                 );
 
@@ -169,19 +298,10 @@ form.addEventListener(
 
             console.log(planta);
 
-            // --------------------------
-            // SALVA DADOS DA API
-            // --------------------------
-
             localStorage.setItem(
                 "dadosPlanta",
                 JSON.stringify(planta)
             );
-
-            // --------------------------
-            // SALVA CAMPOS QUE AINDA
-            // NÃO EXISTEM NO BACKEND
-            // --------------------------
 
             localStorage.setItem(
                 "dadosExtrasPlanta",
@@ -190,11 +310,9 @@ form.addEventListener(
                 )
             );
 
-            // --------------------------
-            // ID DA PLANTA
-            // --------------------------
-
-            if (planta.id) {
+            if (
+                planta.id !== undefined
+            ) {
 
                 localStorage.setItem(
                     "idPlanta",
@@ -204,7 +322,7 @@ form.addEventListener(
             }
 
             alert(
-                "Perfil salvo com sucesso!"
+                "Perfil atualizado com sucesso!"
             );
 
             window.location.href =
@@ -224,3 +342,9 @@ form.addEventListener(
 
     }
 );
+
+// ==============================
+// INICIALIZAÇÃO
+// ==============================
+
+carregarPlanta();
