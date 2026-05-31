@@ -37,9 +37,9 @@
             Histórico
         </a>
 
-        <a href="perfil.html">
+        <a href="perfil.html"> 
             <i class="fa-solid fa-seedling"></i>
-            Perfil de planta
+            Perfil de planta 
         </a>
 
         <a href="login.html">
@@ -58,7 +58,7 @@
 
             <div class="planta-select">
                 <img src="../img/feliz/cactomuitofeliz.png" alt="Cacto" id="iconePequeno">
-                <span id="nomePlantaTopo">Meu Cacto</span>
+                <span id="nomePlantaTopo">Carregando</span> <!-- alteração para carregando -->
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
 
@@ -76,6 +76,12 @@
 
             </div>
 
+        </header>
+
+        <!-- adicionando boas vindas junto com nome do usuário -->
+        <header class="boas-vindas">
+        <h1 id="nomeUsuario">Olá!</h1>
+        <p>Veja como sua planta está hoje 🌱</p>
         </header>
 
         <!-- CARDS DOS SENSORES -->
@@ -183,7 +189,14 @@
         <section class="conteudo-principal">
 
             <!-- ÁREA DA PLANTA (com balão de fala) -->
+            
             <div class="painel-planta">
+
+            <!-- Criando uma div que especifica o nome de planta de acordo com a interação com usuário-->
+            <div class="info-planta"> 
+                <h2 id="nomePlantaPrincipal">Carregando... </h2> 
+                    
+            </div>
 
                 <!-- BALÃO DE FALA (TEXTO DINÂMICO) -->
                 <div class="fala">

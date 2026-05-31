@@ -181,6 +181,24 @@ body {
     cursor: pointer;
 }
 
+/* ========== BOAS-VINDAS ========== */
+
+.boas-vindas {
+    margin-bottom: 30px;
+}
+
+.boas-vindas h1 {
+    font-size: 32px;
+    color: #1a3a2b;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.boas-vindas p {
+    font-size: 16px;
+    color: #666;
+}
+
 /* ========== PERFIL CLICÁVEL ========== */
 .foto-perfil-container {
     cursor: pointer;
@@ -324,6 +342,21 @@ body {
 }
 
 /* ========== PAINEL PLANTA (COM BALÃO E IMAGEM) ========== */
+
+.info-planta {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.info-planta h2 {
+    font-size: 30px;
+    color: #2e7d32;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+
+
 .conteudo-principal {
     display: flex;
     gap: 30px;
@@ -679,5 +712,18 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         gap: 8px;
+    }
+
+     /*responsividade no boas vindas*/
+    .boas-vindas h1 {
+        font-size: 24px;
+    }
+    
+    .boas-vindas p {
+        font-size: 14px;
+    }
+
+    .info-planta h2 {
+        font-size: 24px;
     }
 }
