@@ -1,151 +1,210 @@
 const token = localStorage.getItem("token");
 
-if(!token){
+if (!token) {
+
     alert("Usuário não autenticado.");
 
     window.location.href = "login.html";
 }
 
-const form = document.getElementById("form-quiz");
+const form =
+    document.getElementById("form-quiz");
 
-const icones = document.querySelectorAll(".icone");
+const icones =
+    document.querySelectorAll(".icone");
 
 let iconeSelecionado = "";
 
-async function carregarPerfil() {
+// ==============================
+// SELEÇÃO DE ÍCONE
+// ==============================
 
-    try {
+icones.forEach(botao => {
 
-        const resposta = await fetch(
-            `${API_URL}/api/monitoramento/home`,
-            {
-                method: "GET",
+    botao.addEventListener("click", () => {
 
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
-
-        if (!resposta.ok) {
-            console.log("Não foi possível carregar os dados.");
-            return;
-        }
-
-        const dados = await resposta.json();
-
-        console.log("Dados recebidos:");
-        console.log(dados);
-
-        document.getElementById("planta").value =
-            dados.nomePlanta || "";
-
-        if (dados.tipoAmbiente) {
-            document.getElementById("tipo").value =
-                dados.tipoAmbiente;
-        }
-
-        iconeSelecionado = dados.icone;
-
-        document
-            .querySelectorAll(".icone")
-            .forEach(botao => {
-
-                if (
-                    botao.dataset.planta === dados.icone
-                ) {
-                    botao.classList.add("selecionado");
-                }
-            });
-
-    }
-
-    catch (erro) {
-        console.log("Erro ao carregar perfil:");
-        console.log(erro);
-    }
-}
-
-
-icones.forEach(function (botao) {
-
-    botao.addEventListener("click", function () {
-
-        document
-            .querySelectorAll(".icone")
-            .forEach(i => {
-                i.classList.remove("selecionado");
-            });
+        icones.forEach(i => {
+            i.classList.remove("selecionado");
+        });
 
         botao.classList.add("selecionado");
 
         iconeSelecionado =
             botao.dataset.planta;
 
-        console.log("Ícone selecionado:");
-        console.log(iconeSelecionado);
+        console.log(
+            "Ícone selecionado:",
+            iconeSelecionado
+        );
 
     });
 
 });
 
-form.addEventListener("submit", async function (event) {
+// ==============================
+// SALVAR PERFIL
+// ==============================
 
-    event.preventDefault();
+form.addEventListener(
+    "submit",
+    async function (event) {
 
-    const token = localStorage.getItem("token");
+        event.preventDefault();
 
-    if (!token) {
-        alert("Usuário não autenticado.");
-        return;
-    }
+        const nomePlanta =
+            document
+                .getElementById("planta")
+                .value
+                .trim();
 
-    const dadosPerfil = {
+        const tipoAmbiente =
+            document
+                .getElementById("tipo")
+                .value;
 
-        nomePlanta:
-            document.getElementById("planta").value,
+        const lugar =
+            document
+                .getElementById("lugar")
+                .value;
 
-        icone:
-            iconeSelecionado,
+        const rega =
+            document
+                .getElementById("rega")
+                .value;
 
-        tipoAmbiente:
-            document.getElementById("tipo").value
+        // --------------------------
+        // VALIDAÇÕES
+        // --------------------------
 
-    };
+        if (!nomePlanta) {
 
-    if (iconeSelecionado === "") {
-        alert("Selecione um ícone!");
-        return;
-    }
+            alert(
+                "Digite o nome da planta."
+            );
 
-    try {
+            return;
+        }
 
-        const resposta = await fetch(
-            `${API_URL}/api/planta/configurar`,
-            {
-                method: "POST",
+        if (!tipoAmbiente) {
 
-                headers: {
-                    "Content-Type": "application/json",
+            alert(
+                "Selecione o tipo da planta."
+            );
 
-                    Authorization:
-                        `Bearer ${token}`
-                },
+            return;
+        }
 
-                body:
-                    JSON.stringify(dadosPerfil)
+        if (!iconeSelecionado) {
+
+            alert(
+                "Selecione um ícone."
+            );
+
+            return;
+        }
+
+        // --------------------------
+        // DADOS PARA O BACKEND
+        // --------------------------
+
+        const dadosBackend = {
+
+            nomePlanta,
+            icone: iconeSelecionado,
+            tipoAmbiente
+
+        };
+
+        // --------------------------
+        // DADOS EXTRAS
+        // --------------------------
+
+        const dadosExtras = {
+
+            lugar,
+            frequenciaRega: rega
+
+        };
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API_URL}/api/planta/configurar`,
+                    {
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            Authorization:
+                                `Bearer ${token}`
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                dadosBackend
+                            )
+                    }
+                );
+
+            if (!resposta.ok) {
+
+                alert(
+                    "Erro ao salvar perfil."
+                );
+
+                return;
             }
-        );
 
-        if (resposta.ok) {
+            const planta =
+                await resposta.json();
 
-            alert("Salvo com sucesso!");
+            console.log(
+                "Resposta do backend:"
+            );
 
-            console.log(dadosPerfil);
+            console.log(planta);
+
+            // --------------------------
+            // SALVA DADOS DA API
+            // --------------------------
 
             localStorage.setItem(
                 "dadosPlanta",
-                JSON.stringify(dadosPerfil)
+                JSON.stringify(planta)
+            );
+
+            // --------------------------
+            // SALVA CAMPOS QUE AINDA
+            // NÃO EXISTEM NO BACKEND
+            // --------------------------
+
+            localStorage.setItem(
+                "dadosExtrasPlanta",
+                JSON.stringify(
+                    dadosExtras
+                )
+            );
+
+            // --------------------------
+            // ID DA PLANTA
+            // --------------------------
+
+            if (planta.id) {
+
+                localStorage.setItem(
+                    "idPlanta",
+                    planta.id
+                );
+
+            }
+
+            alert(
+                "Perfil salvo com sucesso!"
             );
 
             window.location.href =
@@ -153,22 +212,15 @@ form.addEventListener("submit", async function (event) {
 
         }
 
-        else {
+        catch (erro) {
 
-            alert("Erro ao salvar perfil.");
+            console.error(erro);
+
+            alert(
+                "Erro na conexão com a API."
+            );
 
         }
 
     }
-
-    catch (erro) {
-
-        console.log(erro);
-
-        alert("Erro na conexão com a API.");
-
-    }
-
-});
-
-carregarPerfil();
+);
