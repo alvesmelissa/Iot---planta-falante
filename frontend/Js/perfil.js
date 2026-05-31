@@ -75,7 +75,7 @@ form.addEventListener("submit", async function(event){
 
     }
 
-    catch(erro){
+        catch(erro){
         console.log(erro);
         alert("Erro na conexão com a API.");
     }

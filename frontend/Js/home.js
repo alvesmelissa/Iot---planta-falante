@@ -26,7 +26,14 @@ async function carregarHome() {
 
         const dados = await resposta.json();
 
-        document.getElementById("nomeUsuario").textContent = dados.nomeUsuario;
+        //adicionado para receber nome da planta
+        document.getElementById("nomePlantaTopo").textContent =
+        dados.nomePlanta;
+
+        document.getElementById("nomePlantaPrincipal").textContent =
+        dados.nomePlanta;
+
+        document.getElementById("nomeUsuario").textContent = `Olá, ${dados.nomeUsuario}!`; //adicionando a saudação olá
 
         let emocao_planta = "";
 
@@ -38,13 +45,20 @@ async function carregarHome() {
             emocao_planta = `../img/triste/${dados.icone}triste.png`;
         }
 
+        
         document.getElementById("iconePlanta").src = emocao_planta;
 
         document.getElementById("iconePlanta").alt = dados.nomePlanta;
+        
+        document.getElementById("iconePequeno").src = emocao_planta; //adicionando parte que muda o icone do topo
 
-        document.getElementById("umidade").textContent = `${dados.umidadeSolo}%`;
+        document.getElementById("iconePequeno").alt = dados.nomePlanta; //adicionando parte que muda o icone do topo
+    
+        document.getElementById("umidadeSolo").textContent = dados.umidadeSolo;
 
-        document.getElementById("temperatura").textContent = `${dados.temperatura}°C`;
+        document.getElementById("umidadeAr").textContent = dados.umidadeAr;
+
+        document.getElementById("temperatura").textContent = dados.temperatura;
 
         document.getElementById("luminosidade").textContent = dados.luminosidade;
 
@@ -62,3 +76,4 @@ carregarHome();
 document.getElementById("btnAdicionarPlanta").addEventListener("click", () => {
     window.location.href = "perfil.html";
 });
+
