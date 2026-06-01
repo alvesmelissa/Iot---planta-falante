@@ -54,7 +54,7 @@ async function carregarPlantas() {
     try {
 
         const resposta = await fetch(
-            `${API_URL}/api/plantas`,
+            `${API_URL}/api/planta`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -192,7 +192,7 @@ async function carregarHistorico(idPlanta) {
     try {
 
         const resposta = await fetch(
-            `${API_URL}/api/monitoramento/historico/${idPlanta}`,
+            `${API_URL}/api/monitoramento/historico`,
             {
                 headers: {
                     Authorization:

@@ -37,7 +37,7 @@ async function carregarPlanta() {
 
         const resposta =
             await fetch(
-                `${API_URL}/api/planta/${idPlanta}`,
+                `${API_URL}/api/planta`,
                 {
                     method: "GET",
 
@@ -342,9 +342,5 @@ form.addEventListener(
 
     }
 );
-
-// ==============================
-// INICIALIZAÇÃO
-// ==============================
 
 carregarPlanta();
