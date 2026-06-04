@@ -1,3 +1,11 @@
+const token = localStorage.getItem("token");
+
+if(!token){
+    alert("Usuário não autenticado.");
+
+    window.location.href = "login.html";
+}
+
 const steps = document.querySelectorAll(".step");
 const progress = document.querySelector(".progress-fill");
 const nextButtons = document.querySelectorAll(".next-btn");
@@ -5,64 +13,60 @@ const nextButtons = document.querySelectorAll(".next-btn");
 let currentStep = 0;
 
 const quizData = {
-    nomePlanta:"",
-    tipoPlanta:"",
-    localizacao:"",
-    quantidadeSol:"",
-    frequenciaRega:"",
-    temperatura:25
+    nomePlanta: "",
+    tipoPlanta: "",
+    localizacao: "",
+    quantidadeSol: "",
+    frequenciaRega: "",
+    temperatura: 25
 };
 
 function updateProgress(){
-
     const percent =
-    ((currentStep + 1) / steps.length) * 100;
+        ((currentStep + 1) / steps.length) * 100;
 
     progress.style.width = percent + "%";
 }
 
 function updateButtonState(){
+    const currentButton = steps[currentStep].querySelector(".next-btn");
 
-    const currentButton =
-    steps[currentStep].querySelector(".next-btn");
-
-    if(!currentButton) return;
+    if (!currentButton) return;
 
     let canContinue = false;
 
-    switch(currentStep){
-
+    switch (currentStep){
         case 0:
             canContinue = true;
             break;
 
         case 1:
             canContinue =
-            document
-            .getElementById("nomePlanta")
-            .value
-            .trim()
-            .length > 0;
+                document
+                    .getElementById("nomePlanta")
+                    .value
+                    .trim()
+                    .length > 0;
             break;
 
         case 2:
             canContinue =
-            quizData.tipoPlanta !== "";
+                quizData.tipoPlanta !== "";
             break;
 
         case 3:
             canContinue =
-            quizData.localizacao !== "";
+                quizData.localizacao !== "";
             break;
 
         case 4:
             canContinue =
-            quizData.quantidadeSol !== "";
+                quizData.quantidadeSol !== "";
             break;
 
         case 5:
             canContinue =
-            quizData.frequenciaRega !== "";
+                quizData.frequenciaRega !== "";
             break;
 
         case 6:
@@ -76,7 +80,7 @@ function updateButtonState(){
 
 function showStep(index){
 
-    steps.forEach(step=>{
+    steps.forEach(step => {
         step.classList.remove("active");
     });
 
@@ -84,133 +88,209 @@ function showStep(index){
 
     updateProgress();
 
-    if(index === 7){
+    if (index === 7) {
         renderResumo();
     }
 
     updateButtonState();
+
+
 }
 
-nextButtons.forEach(btn=>{
+nextButtons.forEach(btn => {
+    btn.addEventListener("click", () =>{
 
-    btn.addEventListener("click",()=>{
+        if (btn.disabled) return;
 
-        if(btn.disabled) return;
-
-        if(currentStep === 1){
+        if (currentStep === 1) {
 
             quizData.nomePlanta =
-            document
-            .getElementById("nomePlanta")
-            .value
-            .trim();
+                document
+                    .getElementById("nomePlanta")
+                    .value
+                    .trim();
         }
 
-        if(currentStep === 6){
+        if (currentStep === 6) {
 
             quizData.temperatura =
-            document
-            .getElementById("temperatura")
-            .value;
+                document
+                    .getElementById("temperatura")
+                    .value;
         }
 
         currentStep++;
 
         showStep(currentStep);
+
     });
 
 });
 
 document
-.querySelectorAll("[data-group]")
-.forEach(card=>{
+    .querySelectorAll("[data-group]")
+    .forEach(card => {
 
-    card.addEventListener("click",()=>{
+        card.addEventListener("click", () => {
 
-        const group =
-        card.dataset.group;
+            const group =
+                card.dataset.group;
 
-        document
-        .querySelectorAll(
-            `[data-group="${group}"]`
-        )
-        .forEach(item=>{
-            item.classList.remove("selected");
+            document
+                .querySelectorAll(
+                    `[data-group="${group}"]`
+                )
+                .forEach(item => {
+                    item.classList.remove("selected");
+                });
+
+            card.classList.add("selected");
+
+            const value =
+                card.dataset.value;
+
+            switch (group) {
+
+                case "tipo":
+                    quizData.tipoPlanta = value;
+                    break;
+
+                case "local":
+                    quizData.localizacao = value;
+                    break;
+
+                case "sol":
+                    quizData.quantidadeSol = value;
+                    break;
+
+                case "rega":
+                    quizData.frequenciaRega = value;
+                    break;
+            }
+
+            updateButtonState();
+
         });
 
-        card.classList.add("selected");
-
-        const value =
-        card.dataset.value;
-
-        switch(group){
-
-            case "tipo":
-                quizData.tipoPlanta = value;
-                break;
-
-            case "local":
-                quizData.localizacao = value;
-                break;
-
-            case "sol":
-                quizData.quantidadeSol = value;
-                break;
-
-            case "rega":
-                quizData.frequenciaRega = value;
-                break;
-        }
-
-        updateButtonState();
     });
 
-});
+const nomeInput = document.getElementById("nomePlanta");
 
-const nomeInput =
-document.getElementById("nomePlanta");
+nomeInput.addEventListener("input", updateButtonState);
 
-nomeInput.addEventListener(
-    "input",
-    updateButtonState
-);
+const temp = document.getElementById("temperatura");
 
-const temp =
-document.getElementById("temperatura");
+const tempNumber = document.getElementById("tempNumber");
 
-const tempNumber =
-document.getElementById("tempNumber");
+temp.addEventListener("input", () => {
 
-temp.addEventListener("input",()=>{
+    tempNumber.textContent = temp.value + "°C";
 
-    tempNumber.textContent =
-    temp.value + "°C";
 });
 
 function renderResumo(){
-
     document.getElementById("resumo").innerHTML = `
-        <div class="resumo-item"><b>Nome:</b> ${quizData.nomePlanta}</div>
-        <div class="resumo-item"><b>Planta:</b> ${quizData.tipoPlanta}</div>
-        <div class="resumo-item"><b>Local:</b> ${quizData.localizacao}</div>
-        <div class="resumo-item"><b>Sol:</b> ${quizData.quantidadeSol}</div>
-        <div class="resumo-item"><b>Rega:</b> ${quizData.frequenciaRega}</div>
-        <div class="resumo-item"><b>Temperatura:</b> ${quizData.temperatura}°C</div>
+        <div class="resumo-item">
+            <b>Nome:</b> ${quizData.nomePlanta}
+        </div>
+
+        <div class="resumo-item">
+            <b>Planta:</b> ${quizData.tipoPlanta}
+        </div>
+
+        <div class="resumo-item">
+            <b>Local:</b> ${quizData.localizacao}
+        </div>
+
+        <div class="resumo-item">
+            <b>Sol:</b> ${quizData.quantidadeSol}
+        </div>
+
+        <div class="resumo-item">
+            <b>Rega:</b> ${quizData.frequenciaRega}
+        </div>
+
+        <div class="resumo-item">
+            <b>Temperatura:</b> ${quizData.temperatura}°C
+        </div>
     `;
 }
 
 document
-.getElementById("finishBtn")
-.addEventListener("click",()=>{
+    .getElementById("finishBtn")
+    .addEventListener("click", async () => {
 
-    localStorage.setItem(
-        "dadosPlanta",
-        JSON.stringify(quizData)
-    );
+        const token = localStorage.getItem("token");
 
-    window.location.href =
-    "home.html";
-});
+        if(!token){
+            alert("Usuário não autenticado.");
+
+            window.location.href = "login.html";
+
+            return;
+        }
+
+        const dadosApi = {
+            nomePlanta: quizData.nomePlanta,
+
+            icone: quizData.tipoPlanta,
+
+            tipoAmbiente: quizData.quantidadeSol === "Pouco Sol" ? "SOMBRA" : "SOL"
+        };
+
+        try {
+            const resposta = await fetch(
+                `${API_URL}/api/planta/configurar`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        Authorization:
+                            `Bearer ${token}`
+                    },
+
+                    body:
+                        JSON.stringify(dadosApi)
+                }
+            );
+
+            if (resposta.ok){
+                localStorage.setItem(
+                    "dadosExtras",
+                    JSON.stringify({
+                        localizacao: quizData.localizacao,
+
+                        frequenciaRega: quizData.frequenciaRega,
+
+                        temperatura: quizData.temperatura
+                    })
+                );
+
+                alert("Perfil criado!");
+
+                window.location.href = "home.html";
+            }
+
+            else{
+                const erro = await resposta.text();
+
+                console.log(erro);
+
+                alert("Erro ao salvar perfil!");
+            }
+
+        }
+
+        catch(erro){
+            console.log(erro);
+
+            alert("Erro na conexão com a API.");
+        }
+
+    });
 
 showStep(0);
 updateButtonState();

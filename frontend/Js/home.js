@@ -1,6 +1,6 @@
 const token = localStorage.getItem("token");
 
-if (!token) {
+if(!token){
     alert("Usuário não autenticado.");
 
     window.location.href = "login.html";
@@ -26,33 +26,29 @@ async function carregarHome() {
 
         const dados = await resposta.json();
 
-        //adicionado para receber nome da planta
-        document.getElementById("nomePlantaTopo").textContent =
-        dados.nomePlanta;
+        document.getElementById("nomePlantaTopo").textContent = dados.nomePlanta;
 
-        document.getElementById("nomePlantaPrincipal").textContent =
-        dados.nomePlanta;
+        document.getElementById("nomePlantaPrincipal").textContent = dados.nomePlanta;
 
-        document.getElementById("nomeUsuario").textContent = `Olá, ${dados.nomeUsuario}!`; //adicionando a saudação olá
+        document.getElementById("nomeUsuario").textContent = `Olá, ${dados.nomeUsuario}!`; 
 
         let emocao_planta = "";
 
-        if (dados.humor === "FELIZ") {
+        if(dados.humor === "FELIZ"){
             emocao_planta = `../img/feliz/${dados.icone}muitofeliz.png`;
         } 
         
-        else {
+        else{
             emocao_planta = `../img/triste/${dados.icone}triste.png`;
         }
-
         
         document.getElementById("iconePlanta").src = emocao_planta;
 
         document.getElementById("iconePlanta").alt = dados.nomePlanta;
         
-        document.getElementById("iconePequeno").src = emocao_planta; //adicionando parte que muda o icone do topo
+        document.getElementById("iconePequeno").src = emocao_planta;
 
-        document.getElementById("iconePequeno").alt = dados.nomePlanta; //adicionando parte que muda o icone do topo
+        document.getElementById("iconePequeno").alt = dados.nomePlanta;
     
         document.getElementById("umidadeSolo").textContent = dados.umidadeSolo;
 
@@ -64,7 +60,7 @@ async function carregarHome() {
 
         document.getElementById("falaPlanta").textContent = dados.alerta;
 
-    } catch (erro) {
+    }catch (erro){
         console.error("Erro completo:", erro);
 
         alert("Erro na conexão com a API.");
