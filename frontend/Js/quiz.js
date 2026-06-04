@@ -2,7 +2,6 @@ const token = localStorage.getItem("token");
 
 if(!token){
     alert("Usuário não autenticado.");
-
     window.location.href = "login.html";
 }
 
@@ -15,27 +14,30 @@ let currentStep = 0;
 const quizData = {
     nomePlanta: "",
     tipoPlanta: "",
-    localizacao: "",
     quantidadeSol: "",
     frequenciaRega: "",
     temperatura: 25
 };
 
-function updateProgress(){
+function updateProgress() {
+
     const percent =
         ((currentStep + 1) / steps.length) * 100;
 
     progress.style.width = percent + "%";
 }
 
-function updateButtonState(){
-    const currentButton = steps[currentStep].querySelector(".next-btn");
+function updateButtonState() {
+
+    const currentButton =
+        steps[currentStep].querySelector(".next-btn");
 
     if (!currentButton) return;
 
     let canContinue = false;
 
-    switch (currentStep){
+    switch (currentStep) {
+
         case 0:
             canContinue = true;
             break;
@@ -56,21 +58,16 @@ function updateButtonState(){
 
         case 3:
             canContinue =
-                quizData.localizacao !== "";
+                quizData.quantidadeSol !== "";
             break;
 
         case 4:
             canContinue =
-                quizData.quantidadeSol !== "";
-            break;
-
-        case 5:
-            canContinue =
                 quizData.frequenciaRega !== "";
             break;
 
+        case 5:
         case 6:
-        case 7:
             canContinue = true;
             break;
     }
@@ -78,7 +75,7 @@ function updateButtonState(){
     currentButton.disabled = !canContinue;
 }
 
-function showStep(index){
+function showStep(index) {
 
     steps.forEach(step => {
         step.classList.remove("active");
@@ -88,17 +85,16 @@ function showStep(index){
 
     updateProgress();
 
-    if (index === 7) {
+    if (index === 6) {
         renderResumo();
     }
 
     updateButtonState();
-
-
 }
 
 nextButtons.forEach(btn => {
-    btn.addEventListener("click", () =>{
+
+    btn.addEventListener("click", () => {
 
         if (btn.disabled) return;
 
@@ -111,7 +107,7 @@ nextButtons.forEach(btn => {
                     .trim();
         }
 
-        if (currentStep === 6) {
+        if (currentStep === 5) {
 
             quizData.temperatura =
                 document
@@ -122,7 +118,6 @@ nextButtons.forEach(btn => {
         currentStep++;
 
         showStep(currentStep);
-
     });
 
 });
@@ -155,10 +150,6 @@ document
                     quizData.tipoPlanta = value;
                     break;
 
-                case "local":
-                    quizData.localizacao = value;
-                    break;
-
                 case "sol":
                     quizData.quantidadeSol = value;
                     break;
@@ -174,32 +165,37 @@ document
 
     });
 
-const nomeInput = document.getElementById("nomePlanta");
+const nomeInput =
+    document.getElementById("nomePlanta");
 
-nomeInput.addEventListener("input", updateButtonState);
+nomeInput.addEventListener(
+    "input",
+    updateButtonState
+);
 
-const temp = document.getElementById("temperatura");
+const temp =
+    document.getElementById("temperatura");
 
-const tempNumber = document.getElementById("tempNumber");
+const tempNumber =
+    document.getElementById("tempNumber");
 
 temp.addEventListener("input", () => {
 
-    tempNumber.textContent = temp.value + "°C";
+    tempNumber.textContent =
+        temp.value + "°C";
 
 });
 
-function renderResumo(){
+function renderResumo() {
+
     document.getElementById("resumo").innerHTML = `
+
         <div class="resumo-item">
             <b>Nome:</b> ${quizData.nomePlanta}
         </div>
 
         <div class="resumo-item">
             <b>Planta:</b> ${quizData.tipoPlanta}
-        </div>
-
-        <div class="resumo-item">
-            <b>Local:</b> ${quizData.localizacao}
         </div>
 
         <div class="resumo-item">
@@ -213,6 +209,7 @@ function renderResumo(){
         <div class="resumo-item">
             <b>Temperatura:</b> ${quizData.temperatura}°C
         </div>
+
     `;
 }
 
@@ -220,25 +217,35 @@ document
     .getElementById("finishBtn")
     .addEventListener("click", async () => {
 
-        const token = localStorage.getItem("token");
+        const token =
+            localStorage.getItem("token");
 
-        if(!token){
+        if (!token) {
+
             alert("Usuário não autenticado.");
 
-            window.location.href = "login.html";
+            window.location.href =
+                "login.html";
 
             return;
         }
 
         const dadosApi = {
-            nomePlanta: quizData.nomePlanta,
 
-            icone: quizData.tipoPlanta,
+            nomePlanta:
+                quizData.nomePlanta,
 
-            tipoAmbiente: quizData.quantidadeSol === "Pouco Sol" ? "SOMBRA" : "SOL"
+            icone:
+                quizData.tipoPlanta,
+
+            tipoAmbiente:
+                quizData.quantidadeSol === "Pouco Sol"
+                    ? "SOMBRA"
+                    : "SOL"
         };
 
         try {
+
             const resposta = await fetch(
                 `${API_URL}/api/planta/configurar`,
                 {
@@ -257,37 +264,46 @@ document
                 }
             );
 
-            if (resposta.ok){
+            if (resposta.ok) {
+
                 localStorage.setItem(
                     "dadosExtras",
                     JSON.stringify({
-                        localizacao: quizData.localizacao,
+                        frequenciaRega:
+                            quizData.frequenciaRega,
 
-                        frequenciaRega: quizData.frequenciaRega,
-
-                        temperatura: quizData.temperatura
+                        temperatura:
+                            quizData.temperatura
                     })
                 );
 
                 alert("Perfil criado!");
 
-                window.location.href = "home.html";
+                window.location.href =
+                    "home.html";
             }
 
-            else{
-                const erro = await resposta.text();
+            else {
+
+                const erro =
+                    await resposta.text();
 
                 console.log(erro);
 
-                alert("Erro ao salvar perfil!");
+                alert(
+                    "Erro ao salvar perfil!"
+                );
             }
 
         }
 
-        catch(erro){
+        catch (erro) {
+
             console.log(erro);
 
-            alert("Erro na conexão com a API.");
+            alert(
+                "Erro na conexão com a API."
+            );
         }
 
     });

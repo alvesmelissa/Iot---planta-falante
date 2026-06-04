@@ -1,18 +1,18 @@
 const token = localStorage.getItem("token");
 
-if(!token){
+if (!token) {
     alert("Usuário não autenticado.");
-
     window.location.href = "login.html";
 }
 
 const dropdown = document.getElementById("dropdownPlantas");
-
 const plantaSelect = document.getElementById("plantaSelect");
-
 const listaPlantas = document.getElementById("listaPlantas");
-
 const btnNovaPlanta = document.getElementById("btnNovaPlanta");
+
+/* =========================
+   DROPDOWN
+========================= */
 
 plantaSelect.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -24,52 +24,66 @@ document.addEventListener("click", () => {
     dropdown.classList.remove("ativo");
 });
 
+/* =========================
+   CARREGAR PLANTAS
+========================= */
+
 async function carregarPlantas() {
+
     try {
+
         const resposta = await fetch(
             `${API_URL}/api/planta`,
             {
                 method: "GET",
-
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }
         );
 
-        if(!resposta.ok){
-            alert("Erro ao carregar dados da planta.");
+        if (!resposta.ok) {
+
+            alert("Erro ao carregar plantas.");
 
             return;
         }
-
 
         const plantas = await resposta.json();
 
         renderizarPlantas(plantas);
 
-        if(plantas.length > 0){
+        if (plantas.length > 0) {
             selecionarPlanta(plantas[0]);
         }
 
     }
 
-    catch(erro){
+    catch (erro) {
+
         console.log(erro);
 
-        alert("Erro na conexão com a API.");
+        mostrarEstadoVazio();
     }
 }
 
-function renderizarPlantas(plantas){
+/* =========================
+   RENDERIZAR PLANTAS
+========================= */
+
+function renderizarPlantas(plantas) {
+
     listaPlantas.innerHTML = "";
 
     plantas.forEach(planta => {
+
         const item = document.createElement("div");
 
         item.className = "item-planta";
 
-        item.innerHTML = `<span>${planta.nomePlanta}</span>`;
+        item.innerHTML = `
+            <span>${planta.nomePlanta}</span>
+        `;
 
         item.addEventListener(
             "click",
@@ -81,106 +95,86 @@ function renderizarPlantas(plantas){
     });
 }
 
-function selecionarPlanta(planta){
-    document.getElementById("nomePlantaTopo").textContent = planta.nomePlanta || "Minha Planta";
+/* =========================
+   SELECIONAR PLANTA
+========================= */
+
+function selecionarPlanta(planta) {
+
+    document.getElementById("nomePlantaTopo").textContent =
+        planta.nomePlanta || "Minha Planta";
 
     dropdown.classList.remove("ativo");
 
-    carregarHistorico();
+    carregarHistorico(planta.id);
 }
 
-async function carregarHistorico(){
-    try{
-        const respostaEventos =
-            await fetch(
-                `${API_URL}/api/monitoramento/eventos`,
-                {
-                    headers: {
-                        Authorization:
-                            `Bearer ${token}`
-                    }
+/* =========================
+   CARREGAR HISTÓRICO
+========================= */
+
+async function carregarHistorico(idPlanta) {
+
+    try {
+
+        const resposta = await fetch(
+            `${API_URL}/api/monitoramento/eventos`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
-            );
+            }
+        );
 
-        const respostaHistorico =
-            await fetch(
-                `${API_URL}/api/monitoramento/historico`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
+        if (!resposta.ok) {
 
-        let eventos = [];
-        let historico = [];
+            mostrarEstadoVazio();
 
-        if(respostaEventos.ok){
-            eventos = await respostaEventos.json();
+            return;
         }
 
-        if(respostaHistorico.ok){
-            historico = await respostaHistorico.json();
-        }
-
-        atualizarResumo(historico);
-
-        atualizarSaude(historico);
-
-        atualizarHumor(historico);
+        const eventos = await resposta.json();
 
         atualizarTimeline(eventos);
 
     }
 
-    catch(erro){
+    catch (erro) {
+
         console.log(erro);
 
-        alert("Erro na conexão com a API.");
+        mostrarEstadoVazio();
     }
 }
 
-function atualizarResumo(historico){
-    document.getElementById("diasBons").textContent = "--";
+/* =========================
+   TIMELINE
+========================= */
 
-    document.getElementById("diasAtencao").textContent = "--";
+function atualizarTimeline(eventos) {
 
-    document.getElementById("diasRuins").textContent = "--";
-}
+    const timeline =
+        document.getElementById("timeline");
 
-function atualizarSaude(historico){
-    const saude = 80;
+    if (!eventos || eventos.length === 0) {
 
-    document.getElementById("porcentagemSaude").textContent = `${saude}%`;
-
-    document.getElementById("barraSaude").style.width = `${saude}%`;
-
-    document.getElementById("textoSaude").textContent = "Dados de saúde ainda não disponíveis.";
-}
-
-function atualizarHumor(historico){
-    const container = document.getElementById("humorSemana");
-
-    container.innerHTML = `
-        <div class="estado-vazio">
-            <i class="fa-solid fa-seedling"></i>
-            <h3>Em desenvolvimento</h3>
-        </div>
-    `;
-}
-
-function atualizarTimeline(eventos){
-    const timeline = document.getElementById("timeline");
-
-    if(!eventos || eventos.length === 0){
-            timeline.innerHTML = `
+        timeline.innerHTML = `
             <div class="estado-vazio">
+
                 <i class="fa-solid fa-seedling"></i>
-                <h3>Nenhum evento registrado</h3>
-                <p>Os acontecimentos aparecerão aqui.</p>
+
+                <h3>
+                    Nenhum evento registrado
+                </h3>
+
+                <p>
+                    Os acontecimentos da sua planta aparecerão aqui.
+                </p>
+
             </div>
         `;
-        
+
         return;
     }
 
@@ -188,28 +182,129 @@ function atualizarTimeline(eventos){
 
     eventos.forEach(evento => {
 
+        let iconeClasse = "feliz";
+        let icone = "fa-seedling";
+
+        const tipo =
+            (evento.tipoEvento || "")
+            .toLowerCase();
+
+        if (
+            tipo.includes("agua") ||
+            tipo.includes("rega")
+        ) {
+            iconeClasse = "agua";
+            icone = "fa-droplet";
+        }
+
+        else if (
+            tipo.includes("sol") ||
+            tipo.includes("luz")
+        ) {
+            iconeClasse = "luz";
+            icone = "fa-sun";
+        }
+
+        else if (
+            tipo.includes("temperatura") ||
+            tipo.includes("calor")
+        ) {
+            iconeClasse = "temp";
+            icone = "fa-temperature-high";
+        }
+
+        const dataFormatada =
+            formatarData(evento.dataHora);
+
         timeline.innerHTML += `
 
-        <div class="evento">
-            <div class="conteudo-evento">
-                <h4>${evento.descricao}</h4>
-                <p>${evento.dataHora}</p>
-                <small>${evento.tipoEvento}</small>
+            <div class="evento">
+
+                <div class="icone-evento ${iconeClasse}">
+                    <i class="fa-solid ${icone}"></i>
+                </div>
+
+                <div class="conteudo-evento">
+
+                    <h4>
+                        ${evento.descricao || "Evento registrado"}
+                    </h4>
+
+                    <p>
+                        ${dataFormatada}
+                    </p>
+
+                    <small>
+                        ${evento.tipoEvento || ""}
+                    </small>
+
+                </div>
+
             </div>
-        </div>
+
         `;
     });
 }
 
-function mostrarEstadoVazio(){
+/* =========================
+   FORMATAR DATA
+========================= */
+
+function formatarData(data) {
+
+    if (!data)
+        return "";
+
+    try {
+
+        return new Date(data)
+            .toLocaleString(
+                "pt-BR",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+    }
+
+    catch {
+
+        return data;
+    }
+}
+
+/* =========================
+   ESTADO VAZIO
+========================= */
+
+function mostrarEstadoVazio() {
+
     document.getElementById("timeline").innerHTML = `
+
         <div class="estado-vazio">
+
             <i class="fa-solid fa-seedling"></i>
-            <h3>Histórico indisponível</h3>
-            <p>Não foi possível carregar os dados.</p>
+
+            <h3>
+                Histórico indisponível
+            </h3>
+
+            <p>
+                Não foi possível carregar os dados.
+            </p>
+
         </div>
+
     `;
 }
+
+/* =========================
+   BOTÕES
+========================= */
 
 btnNovaPlanta.addEventListener(
     "click",
@@ -218,11 +313,17 @@ btnNovaPlanta.addEventListener(
     }
 );
 
-document.getElementById("btnAdicionarPlanta").addEventListener(
+document
+    .getElementById("btnAdicionarPlanta")
+    .addEventListener(
         "click",
         () => {
             window.location.href = "perfil.html";
         }
     );
+
+/* =========================
+   INICIAR
+========================= */
 
 carregarPlantas();
