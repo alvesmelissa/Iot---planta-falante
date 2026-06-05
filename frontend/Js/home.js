@@ -73,3 +73,46 @@ document.getElementById("btnAdicionarPlanta").addEventListener("click", () => {
     window.location.href = "perfil.html";
 });
 
+//adicionando carrosel de dicas
+
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
+
+dots.forEach((dot, index) => {
+
+    dot.addEventListener("click", () => {
+
+        slides.forEach(slide => {
+            slide.classList.remove("ativo");
+        });
+
+        dots.forEach(d => {
+            d.classList.remove("ativo");
+        });
+
+        slides[index].classList.add("ativo");
+        dot.classList.add("ativo");
+
+    });
+
+}); 
+
+
+//adicionando um setIntervalo para que as dicas mudem sozinhas a cada oito segundos
+let slideAtual = 0;
+
+setInterval(() => {
+
+    slides[slideAtual].classList.remove("ativo");
+    dots[slideAtual].classList.remove("ativo");
+
+    slideAtual++;
+
+    if (slideAtual >= slides.length) {
+        slideAtual = 0;
+    }
+
+    slides[slideAtual].classList.add("ativo");
+    dots[slideAtual].classList.add("ativo");
+
+}, 8000);

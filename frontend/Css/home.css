@@ -429,7 +429,7 @@ body {
     transform: scale(1.01);
 }
 
-/* ========== RESUMO (LATERAL DIREITA) ========== */
+/* carrosel de dicas */
 .resumo {
     flex: 1;
     background: white;
@@ -452,47 +452,87 @@ body {
     color: #333;
 }
 
-.titulo-resumo a {
-    color: #2e7d32;
-    text-decoration: none;
-    font-size: 12px;
-}
-
-.lista-resumo {
+.lista-dicas {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 12px;
+
+    max-height: 350px;
+    overflow-y: auto;
+
+    padding-right: 5px;
 }
 
-.item-resumo {
+/* layout do carrosel de dicas */
+
+.carrossel-dicas {
+    position: relative;
+    height: 220px;
+}
+
+.slide {
+    display: none;
+
+    height: 100%;
+
+    background: linear-gradient(
+        135deg,
+        #f1f8e9,
+        #e8f5e9
+    );
+
+    border-left: 5px solid #4caf50;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    color: #2e5939;
+
+    line-height: 1.8;
+
+    font-weight: 500;
+}
+
+.slide.ativo {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
+    justify-content: center;
 }
 
-.item-resumo span {
-    font-weight: 500;
-    color: #555;
+.indicadores {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
 }
 
-.item-resumo p {
-    font-size: 13px;
-    font-weight: 500;
+.dot {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #c8e6c9;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
 }
 
-.amarelo-texto {
-    color: #ff9800;
+.dot:hover {
+    transform: scale(1.2);
 }
 
-.vermelho-texto {
-    color: #f44336;
+.dot.ativo {
+    background: #4caf50;
+    transform: scale(1.3);
 }
 
-.verde-texto {
-    color: #4caf50;
-}
 
 /* ========== SAÚDE ========== */
 .saude {
@@ -641,7 +681,16 @@ body {
     
     .resumo {
         padding: 15px;
-    }
+    } 
+
+    .card-dica {
+    min-height: 160px;
+    padding: 15px;
+}
+
+.card-dica p {
+    font-size: 14px;
+}
     
     .saude {
         padding: 15px;
@@ -704,9 +753,13 @@ body {
         bottom: -8px;
     }
     
-    .item-resumo {
-        padding: 10px 0;
-    }
+    .card-dica {
+    min-height: 140px;
+}
+
+.card-dica p {
+    font-size: 13px;
+}
     
     .labels-saude {
         flex-wrap: wrap;
