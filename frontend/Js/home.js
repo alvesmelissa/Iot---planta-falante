@@ -1,15 +1,20 @@
 const token = localStorage.getItem("token");
+const plantaId = localStorage.getItem("plantaId");
 
-if(!token){
+if (!token) {
     alert("Usuário não autenticado.");
-
     window.location.href = "login.html";
+}
+
+if (!plantaId) {
+    alert("Nenhuma planta selecionada.");
+    window.location.href = "perfil.html";
 }
 
 async function carregarHome() {
     try {
         const resposta = await fetch(
-            `${API_URL}/api/monitoramento/home`,
+            `${API_URL}/api/monitoramento/home/${plantaId}`,
             {
                 method: "GET",
 
@@ -26,11 +31,16 @@ async function carregarHome() {
 
         const dados = await resposta.json();
 
+        const nomeUsuario = localStorage.getItem("nomeUsuario");
+
+        document.getElementById("nomeUsuario").textContent =
+        nomeUsuario ? `Olá, ${nomeUsuario}!` : "Olá!";
+
         document.getElementById("nomePlantaTopo").textContent = dados.nomePlanta;
 
         document.getElementById("nomePlantaPrincipal").textContent = dados.nomePlanta;
 
-        document.getElementById("nomeUsuario").textContent = `Olá, ${dados.nomeUsuario}!`; 
+
 
         let emocao_planta = "";
 
@@ -95,7 +105,7 @@ dots.forEach((dot, index) => {
 
     });
 
-}); 
+});
 
 
 //adicionando um setIntervalo para que as dicas mudem sozinhas a cada oito segundos
@@ -116,3 +126,4 @@ setInterval(() => {
     dots[slideAtual].classList.add("ativo");
 
 }, 8000);
+

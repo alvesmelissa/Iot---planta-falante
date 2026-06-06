@@ -102,13 +102,11 @@ form.addEventListener("submit", async function (event) {
         );
 
 
-        if (dadosResposta.id) {
 
-            localStorage.setItem(
-                "idPlanta",
-                dadosResposta.id
-            );
+            if (dadosResposta.id) {
+            localStorage.setItem("plantaId", dadosResposta.id);
         }
+
 
         alert("Perfil salvo com sucesso!");
 
