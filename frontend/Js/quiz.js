@@ -1,9 +1,9 @@
-const token = localStorage.getItem("token");
+//const token = localStorage.getItem("token");
 
-if(!token){
-    alert("Usuário não autenticado.");
-    window.location.href = "login.html";
-}
+//if(!token){
+    //alert("Usuário não autenticado.");
+    //window.location.href = "login.html";
+//}
 
 const steps = document.querySelectorAll(".step");
 const progress = document.querySelector(".progress-fill");
@@ -230,19 +230,18 @@ document
             return;
         }
 
-        const dadosApi = {
+    const dadosApi = {  
 
-            nomePlanta:
-                quizData.nomePlanta,
+    nomePlanta: quizData.nomePlanta,
 
-            icone:
-                quizData.tipoPlanta,
+    icone: quizData.tipoPlanta,
 
-            tipoAmbiente:
-                quizData.quantidadeSol === "Pouco Sol"
-                    ? "SOMBRA"
-                    : "SOL"
-        };
+    solPlanta: quizData.quantidadeSol,
+
+    umidadePlanta: quizData.frequenciaRega,
+
+    tempPlanta: `${quizData.temperatura}°C`
+};
 
         try {
 
@@ -264,26 +263,22 @@ document
                 }
             );
 
-            if (resposta.ok) {
+        if (resposta.ok) {
 
-                localStorage.setItem(
-                    "dadosExtras",
-                    JSON.stringify({
-                        frequenciaRega:
-                            quizData.frequenciaRega,
+            const dadosResposta = await resposta.json();
 
-                        temperatura:
-                            quizData.temperatura
-                    })
-                );
+            localStorage.setItem(
+            "plantaId",
+            dadosResposta.id
+        );
 
-                alert("Perfil criado!");
+        alert("Perfil criado!");
 
-                window.location.href =
-                    "home.html";
-            }
+        window.location.href =
+        "home.html";
+}
 
-            else {
+        else {
 
                 const erro =
                     await resposta.text();
