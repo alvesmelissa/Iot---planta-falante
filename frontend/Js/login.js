@@ -38,17 +38,21 @@ form.addEventListener("submit", async function(event){
             }
         );
 
-        if(resposta.ok){
-            const dados = await resposta.json();
+        const dados = await resposta.json();
+        console.log(dados);
+        localStorage.setItem("token", dados.token);
+        localStorage.setItem("usuarioId", dados.usuarioId);
 
-            localStorage.setItem(
-                "token",
-                dados.token
-            );
+        if(resposta.ok){
+            console.log(dados);
+
+            localStorage.setItem("token", dados.token);
+
+            localStorage.setItem("usuarioId", dados.usuarioId);
 
             alert("Login realizado com sucesso!");
 
-            window.location.href = "perfil.html";
+           //window.location.href = "quiz.html";
         }
 
         else{

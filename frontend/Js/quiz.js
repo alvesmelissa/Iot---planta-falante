@@ -1,9 +1,10 @@
-//const token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
+const usuarioId = localStorage.getItem("usuarioId");
 
-//if(!token){
-    //alert("Usuário não autenticado.");
-    //window.location.href = "login.html";
-//}
+if(!token){
+    alert("Usuário não autenticado.");
+    window.location.href = "login.html";
+}
 
 const steps = document.querySelectorAll(".step");
 const progress = document.querySelector(".progress-fill");
@@ -12,6 +13,7 @@ const nextButtons = document.querySelectorAll(".next-btn");
 let currentStep = 0;
 
 const quizData = {
+    usuarioId: "",
     nomePlanta: "",
     tipoPlanta: "",
     quantidadeSol: "",
@@ -164,7 +166,7 @@ document
         });
 
     });
-
+    
 const nomeInput =
     document.getElementById("nomePlanta");
 
@@ -230,21 +232,18 @@ document
             return;
         }
 
-    const dadosApi = {  
-
-    nomePlanta: quizData.nomePlanta,
-
-    icone: quizData.tipoPlanta,
-
-    solPlanta: quizData.quantidadeSol,
-
-    umidadePlanta: quizData.frequenciaRega,
-
-    tempPlanta: `${quizData.temperatura}°C`
+    const dadosApi = {
+        usuarioId: usuarioId,
+        nomePlanta: quizData.nomePlanta,
+        icone: quizData.tipoPlanta,
+        umidadePlanta: quizData.frequenciaRega,
+        tempPlanta: quizData.temperatura,
+        solPlanta: quizData.quantidadeSol  
 };
 
-        try {
+console.log("Enviando:", dadosApi);
 
+        try {
             const resposta = await fetch(
                 `${API_URL}/api/planta/configurar`,
                 {
@@ -264,41 +263,30 @@ document
             );
 
         if (resposta.ok) {
-
             const dadosResposta = await resposta.json();
 
-            localStorage.setItem(
-            "plantaId",
-            dadosResposta.id
-        );
+            localStorage.setItem("plantaId", dadosResposta.id );
 
         alert("Perfil criado!");
 
-        window.location.href =
-        "home.html";
+        window.location.href = "home.html";
 }
 
         else {
+                const erro = await resposta.text();
 
-                const erro =
-                    await resposta.text();
+                console.error("Status:", resposta.status);
+                console.error("Resposta:", erro);
 
-                console.log(erro);
-
-                alert(
-                    "Erro ao salvar perfil!"
-                );
+                alert("Erro ao salvar perfil!");
             }
 
         }
 
         catch (erro) {
-
             console.log(erro);
 
-            alert(
-                "Erro na conexão com a API."
-            );
+            alert("Erro na conexão com a API.");
         }
 
     });

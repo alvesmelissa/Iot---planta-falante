@@ -318,7 +318,7 @@ document
     .addEventListener(
         "click",
         () => {
-            window.location.href = "perfil.html";
+            window.location.href = "quiz.html";
         }
     );
 
