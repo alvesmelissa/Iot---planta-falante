@@ -8,7 +8,7 @@ if (!token) {
 
 if (!plantaId) {
     alert("Nenhuma planta selecionada.");
-    window.location.href = "perfil.html";
+    window.location.href = "quiz.html";
 }
 
 async function carregarHome() {
@@ -80,7 +80,7 @@ async function carregarHome() {
 carregarHome();
 
 document.getElementById("btnAdicionarPlanta").addEventListener("click", () => {
-    window.location.href = "perfil.html";
+    window.location.href = "quiz.html";
 });
 
 //adicionando carrosel de dicas
