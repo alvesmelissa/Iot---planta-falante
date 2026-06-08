@@ -52,7 +52,7 @@ form.addEventListener("submit", async function(event){
 
             alert("Login realizado com sucesso!");
 
-           //window.location.href = "quiz.html";
+           window.location.href = "quiz.html";
         }
 
         else{

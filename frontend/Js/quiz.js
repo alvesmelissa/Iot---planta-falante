@@ -233,7 +233,7 @@ document
         }
 
     const dadosApi = {
-        usuarioId: usuarioId,
+        usuarioId: quizData.usuarioId,
         nomePlanta: quizData.nomePlanta,
         icone: quizData.tipoPlanta,
         umidadePlanta: quizData.frequenciaRega,
@@ -243,6 +243,8 @@ document
 
 console.log("Enviando:", dadosApi);
 
+console.log("usuarioId:", localStorage.getItem("usuarioId"));
+console.log("Dados enviados:", dadosApi);
         try {
             const resposta = await fetch(
                 `${API_URL}/api/planta/configurar`,
