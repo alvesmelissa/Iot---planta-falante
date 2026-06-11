@@ -152,26 +152,6 @@ body {
     gap: 20px;
 }
 
-.notificacao {
-    position: relative;
-    cursor: pointer;
-}
-
-.notificacao i {
-    font-size: 22px;
-    color: #666;
-}
-
-.notificacao span {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: #f44336;
-    color: white;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 10px;
-}
 
 .foto-perfil {
     width: 40px;
@@ -199,8 +179,10 @@ body {
     color: #666;
 }
 
-/* ========== PERFIL CLICÁVEL ========== */
+/* ========== perfil/ logout ========== */
+
 .foto-perfil-container {
+    position: relative;
     cursor: pointer;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
@@ -208,6 +190,56 @@ body {
 .foto-perfil-container:hover {
     transform: scale(1.05);
     opacity: 0.9;
+}
+
+.menu-perfil {
+    position: absolute;
+    top: 50px;
+    right: 0;
+
+    width: 140px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    display: none;
+
+    overflow: hidden;
+
+    z-index: 1000;
+}
+
+.menu-perfil.ativo {
+    display: block;
+}
+
+#btnLogout {
+    width: 100%;
+
+    border: none;
+
+    background: none;
+
+    padding: 12px 15px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 14px;
+
+    color: #333;
+}
+
+#btnLogout:hover {
+    background: #f5f5f5;
 }
 
 /* ========== CARDS DOS SENSORES ========== */

@@ -199,17 +199,6 @@ body{
     font-weight:600;
 }
 
-.perfil-topo{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-
-.foto-perfil{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-}
 
 /* =========================
    CABEÇALHO

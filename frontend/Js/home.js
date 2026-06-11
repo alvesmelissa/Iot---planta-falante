@@ -127,3 +127,33 @@ setInterval(() => {
 
 }, 8000);
 
+//perfil
+const perfilContainer = document.getElementById("perfilContainer");
+const menuPerfil = document.getElementById("menuPerfil");
+
+perfilContainer.addEventListener("click", (e) => {
+    e.stopPropagation();
+    menuPerfil.classList.toggle("ativo");
+});
+
+document.addEventListener("click", () => {
+    menuPerfil.classList.remove("ativo");
+});
+
+// remove os dados que estão armazenados no localstore após deslogar
+const btnLogout = document.getElementById("btnLogout");
+
+btnLogout.addEventListener("click", () => {
+
+    const confirmar = confirm("Deseja realmente sair?");
+
+    if (!confirmar) {
+        return;
+    }
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuarioId");
+    localStorage.removeItem("plantaId");
+
+    window.location.href = "login.html";
+});
