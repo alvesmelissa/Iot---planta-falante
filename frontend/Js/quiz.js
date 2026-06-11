@@ -13,7 +13,6 @@ const nextButtons = document.querySelectorAll(".next-btn");
 let currentStep = 0;
 
 const quizData = {
-    usuarioId: "",
     nomePlanta: "",
     tipoPlanta: "",
     quantidadeSol: "",
@@ -233,12 +232,12 @@ document
         }
 
     const dadosApi = {
-        usuarioId: quizData.usuarioId,
+        usuarioId: Number(usuarioId), //usuarioid sendo referenciado fora do quiz, já que, ele não é retornado nele
         nomePlanta: quizData.nomePlanta,
         icone: quizData.tipoPlanta,
+        solPlanta: quizData.quantidadeSol,
         umidadePlanta: quizData.frequenciaRega,
-        tempPlanta: quizData.temperatura,
-        solPlanta: quizData.quantidadeSol  
+        tempPlanta: `${quizData.temperatura}°C`
 };
 
 console.log("Enviando:", dadosApi);
