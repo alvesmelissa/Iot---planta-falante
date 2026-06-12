@@ -20,6 +20,14 @@ const quizData = {
     temperatura: 25
 };
 
+function mostrarLoading() {
+    document.getElementById("loadingOverlay").style.display = "flex";
+}
+
+function esconderLoading() {
+    document.getElementById("loadingOverlay").style.display = "none";
+}
+
 function updateProgress() {
 
     const percent =
@@ -245,6 +253,8 @@ console.log("Enviando:", dadosApi);
 console.log("usuarioId:", localStorage.getItem("usuarioId"));
 console.log("Dados enviados:", dadosApi);
         try {
+            mostrarLoading();
+
             const resposta = await fetch(
                 `${API_URL}/api/planta/configurar`,
                 {
@@ -288,6 +298,10 @@ console.log("Dados enviados:", dadosApi);
             console.log(erro);
 
             alert("Erro na conexão com a API.");
+        }
+
+        finally {
+            esconderLoading();
         }
 
     });
