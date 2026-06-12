@@ -440,6 +440,33 @@ body {
     margin: 0;
 }
 
+/* Planta saudável tom verde*/
+.fala.saudavel {
+    background: #e8f5e9;
+}
+
+.fala.saudavel p {
+    color: #2e7d32;
+}
+
+/* Planta com alerta tom vermelho */
+.fala.alerta {
+    background: #ffebee;
+}
+
+.fala.alerta p {
+    color: #c62828;
+}
+
+/* Ajusta a ponta do balão */
+.fala.saudavel::after {
+    border-color: #e8f5e9 transparent transparent transparent;
+}
+
+.fala.alerta::after {
+    border-color: #ffebee transparent transparent transparent;
+}
+
 /* IMAGEM DA PLANTA - REDIMENSIONADA */
 .imagem-planta {
     width: 280px;

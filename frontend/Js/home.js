@@ -70,6 +70,16 @@ async function carregarHome() {
 
         document.getElementById("falaPlanta").textContent = dados.alerta;
 
+        const fala = document.querySelector(".fala"); //adicionando mudança de cor de acordo com o alerta da planta
+
+        fala.classList.remove("saudavel", "alerta");
+
+        if (dados.humor === "FELIZ") {
+            fala.classList.add("saudavel");
+        } else {
+        fala.classList.add("alerta");
+}
+
     }catch (erro){
         console.error("Erro completo:", erro);
 
