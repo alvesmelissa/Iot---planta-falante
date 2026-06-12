@@ -103,6 +103,8 @@ dots.forEach((dot, index) => {
         slides[index].classList.add("ativo");
         dot.classList.add("ativo");
 
+        slideAtual = index; //garantindo que não ocorra a quebra do carrossel no último slide
+
     });
 
 });
