@@ -68,6 +68,39 @@ async function carregarHome() {
 
         document.getElementById("luminosidade").textContent = dados.luminosidade;
 
+        const porcentagem = document.getElementById("porcentagemSaude");  //a porcentagem será decidida a partir do humor da planta, assim como a foto dinâmica
+        const barra = document.getElementById("barraSaude");
+        const status = document.getElementById("statusSaude");
+
+        status.classList.remove(
+            "excelente",
+            "boa",
+            "atencao",
+            "critica"
+        );
+
+        if (dados.humor === "FELIZ") {
+
+            porcentagem.textContent = "100%";
+
+            status.textContent = "Excelente 🌱";
+            status.classList.add("excelente");
+
+            barra.style.width = "100%";
+            barra.style.background = "#4caf50";
+
+        } else {
+
+            porcentagem.textContent = "40%";
+
+            status.textContent = "Atenção ⚠️";
+            status.classList.add("atencao");
+
+            barra.style.width = "40%";
+            barra.style.background = "#ff9800";
+        }
+        
+        
         document.getElementById("falaPlanta").textContent = dados.alerta;
 
         const fala = document.querySelector(".fala"); //adicionando mudança de cor de acordo com o alerta da planta

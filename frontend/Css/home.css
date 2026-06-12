@@ -633,19 +633,44 @@ body {
     margin-bottom: 15px;
 }
 
-.nivel-saude {
-    width: 65%;
+.nivel-saude {  /* atualização do nivel de saúde*/
+    width: 0;
     height: 100%;
     background: #4caf50;
     border-radius: 10px;
-    transition: width 0.5s ease;
+    transition: width 0.8s ease, background 0.4s ease;
 }
+
 
 .labels-saude {
     display: flex;
     justify-content: space-between;
     font-size: 11px;
     color: #999;
+}
+
+/* Status textual da saúde */
+.status-saude {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.status-saude.excelente {
+    color: #2e7d32;
+}
+
+.status-saude.boa {
+    color: #4caf50;
+}
+
+.status-saude.atencao {
+    color: #ff9800;
+}
+
+.status-saude.critica {
+    color: #f44336;
 }
 
 /* ========== RESPONSIVO ========== */

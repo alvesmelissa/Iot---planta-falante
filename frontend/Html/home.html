@@ -264,27 +264,33 @@
 
         </section>
 
-        <section class="saude">
+        <section class="saude">   <!-- seção que refere-se a linha de saúde da planta -->
 
-            <div class="titulo-saude">
-                <i class="fa-solid fa-heart"></i>
-                <h3>Linha da saúde</h3>
-            </div>
+        <div class="titulo-saude">
+            <i class="fa-solid fa-heart"></i>
+            <h3>Linha da saúde</h3>
+        </div>
 
-            <div class="porcentagem" id="porcentagemSaude">65%</div>
+        <!-- PORCENTAGEM (dinâmica via JS) -->
+        <div class="porcentagem" id="porcentagemSaude">---</div>
 
-            <div class="barra-saude">
-                <div class="nivel-saude" id="barraSaude"></div>
-            </div>
+            <!-- STATUS TEXTUAL (dinâmico via JS) -->
+             <p class="status-saude" id="statusSaude">Carregando...</p>
 
-            <div class="labels-saude">
-                <span>Crítica</span>
-                <span>Atenção</span>
-                <span>Boa</span>
-                <span>Excelente</span>
-            </div>
+            <!-- BARRA (dinâmica via JS) -->
+        <div class="barra-saude">
+            <div class="nivel-saude" id="barraSaude"></div>
+        </div>
 
-        </section>
+        <!-- LABELS FIXAS -->
+         <div class="labels-saude">
+            <span>Crítica</span>
+            <span>Atenção</span>
+            <span>Boa</span>
+            <span>Excelente</span>
+        </div>
+
+    </section>
 
     </main>
 
