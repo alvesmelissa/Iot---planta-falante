@@ -1,7 +1,6 @@
 const token = localStorage.getItem("token");
 const usuarioId = localStorage.getItem("usuarioId");
-const plantaId = localStorage.getItem("plantaId");
-const plantaDados = JSON.parse(localStorage.getItem("plantaDados"));
+const plantaId = localStorage.getItem("plantaId"); 
 
 if (!token) {
     alert("Usuário não autenticado.");
@@ -17,136 +16,145 @@ let tipoSelecionado = "";
 let solSelecionado = "";
 let regaSelecionada = "";
 
-const nomeInput = document.getElementById("nomePlanta");
-const tempInput = document.getElementById("temperatura");
-const tempNumber = document.getElementById("tempNumber");
-const salvarBtn = document.getElementById("salvarBtn");
-
-function selecionarCard(cards, valor) {
-    cards.forEach(card => {
-        card.classList.remove("selected");
-
-        if (card.dataset.value === valor) {
-            card.classList.add("selected");
-        }
-    });
-}
-
-function preencherCampos(planta) {
-    if (!planta) return;
-
-    nomeInput.value = planta.nomePlanta || "";
-
-    tipoSelecionado = planta.icone || "";
-    solSelecionado = planta.solPlanta || "";
-    regaSelecionada = planta.umidadePlanta || "";
-
-    const temperatura = parseInt(planta.tempPlanta) || 25;
-    tempInput.value = temperatura;
-    tempNumber.textContent = temperatura + "°C";
-
-    selecionarCard(document.querySelectorAll(".card-option"), tipoSelecionado);
-
-    selecionarCard(document.querySelectorAll('[data-group="sol"]'), solSelecionado);
-
-    selecionarCard(document.querySelectorAll('[data-group="rega"]'), regaSelecionada);
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-    if (plantaDados) {
-        preencherCampos(plantaDados);
+    console.log("Carregando dados da Quiz...");
+
+    const nomeInput = document.getElementById("nomePlanta");
+    const tempInput = document.getElementById("temperatura");
+    const tempNumber = document.getElementById("tempNumber");
+    const salvarBtn = document.getElementById("salvarBtn");
+
+    function carregarDadosConfiguracao() {
+        const dadosQuizString = localStorage.getItem("plantaDados") || localStorage.getItem("dadosQuiz") || localStorage.getItem("resultadoQuiz");
+
+        const plantaHomeString = localStorage.getItem("dadosPlantaEdicao");
+
+        let dadosHome = plantaHomeString ? JSON.parse(plantaHomeString) : {};
+
+        const dadosQuiz = dadosQuizString ? JSON.parse(dadosQuizString) : {};
+
+        console.log("Carregados do Quiz:", dadosQuiz);
+
+        nomeInput.value = dadosQuiz.nomePlanta || dadosHome.nomePlanta || "Julia";
+
+        tipoSelecionado = dadosQuiz.icone || dadosHome.icone || "";
+
+        solSelecionado = dadosQuiz.solPlanta || dadosQuiz.sol || "";
+
+        regaSelecionada = dadosQuiz.umidadePlanta || dadosQuiz.rega || dadosQuiz.umidade || "";
+
+        const tempBruta = dadosQuiz.tempPlanta || dadosHome.temperatura || dadosHome.tempPlanta || 25;
+
+        const temperatura = parseInt(tempBruta) || 25;
+
+        tempInput.value = temperatura;
+
+        tempNumber.textContent = temperatura + "°C";
+
+        atualizarSelecaoVisual(document.querySelectorAll(".card-option"), tipoSelecionado);
+        atualizarSelecaoVisual(document.querySelectorAll('[data-group="sol"]'), solSelecionado);
+        atualizarSelecaoVisual(document.querySelectorAll('[data-group="rega"]'), regaSelecionada);
     }
 
-    tempNumber.textContent = tempInput.value + "°C";
-});
-
-tempInput.addEventListener("input", () => {
-    tempNumber.textContent = tempInput.value + "°C";
-});
-
-document.querySelectorAll(".card-option").forEach(card => {
-    card.addEventListener("click", () => {
-        document.querySelectorAll(".card-option").forEach(item => {
-            item.classList.remove("selected");
-        });
-
-        card.classList.add("selected");
-        tipoSelecionado = card.dataset.value;
-    });
-});
-
-document.querySelectorAll('[data-group="sol"]').forEach(item => {
-    item.addEventListener("click", () => {
-        document.querySelectorAll('[data-group="sol"]').forEach(opcao => {
-            opcao.classList.remove("selected");
-        });
-
-        item.classList.add("selected");
-        solSelecionado = item.dataset.value;
-    });
-});
-
-document.querySelectorAll('[data-group="rega"]').forEach(item => {
-    item.addEventListener("click", () => {
-        document.querySelectorAll('[data-group="rega"]').forEach(opcao => {
-            opcao.classList.remove("selected");
-        });
-
-        item.classList.add("selected");
-        regaSelecionada = item.dataset.value;
-    });
-});
-
-salvarBtn.addEventListener("click", async () => {
-    const dadosApi = {
-        usuarioId: Number(usuarioId),
-        nomePlanta: nomeInput.value.trim(),
-        icone: tipoSelecionado,
-        umidadePlanta: regaSelecionada,
-        tempPlanta: `${tempInput.value}°C`,
-        solPlanta: solSelecionado
-    };
-
-    console.log("Enviando PATCH:", dadosApi);
-
-    try {
-        const resposta = await fetch(
-            `${API_URL}/api/planta/{id}/configurar`,
-            {
-                method: "PATCH",
-
-                headers: {
-                    "Content-Type": "application/json",
-
-                    Authorization: `Bearer ${token}`
-                },
-
-                body: JSON.stringify(dadosApi)
-            }
-        );
-
-        if (resposta.ok) {
-            localStorage.setItem("plantaDados", JSON.stringify(dadosApi));
-
-            alert("Planta atualizada com sucesso!");          
+    function atualizarSelecaoVisual(cards, valor) {
+        if (!cards || cards.length === 0 || !valor) return;
+        
+        cards.forEach(card => {
+            card.classList.remove("selected");
             
-            window.location.href = "home.html";
+            const dataValue = card.dataset.value ? card.dataset.value.trim().toLowerCase() : "";
+            const textoCard = card.innerText ? card.innerText.trim().toLowerCase() : "";
+            const valorBusca = String(valor).trim().toLowerCase();
+
+            if (dataValue === valorBusca || textoCard === valorBusca) {
+                card.classList.add("selected");
+                
+                if (card.classList.contains("card-option")) {
+                    tipoSelecionado = card.dataset.value || card.innerText.trim();
+                } 
+
+                else if (card.getAttribute("data-group") === "sol") {
+                    solSelecionado = card.dataset.value;
+                } 
+
+                else if (card.getAttribute("data-group") === "rega") {
+                    regaSelecionada = card.dataset.value;
+                }
+            }
+        });
+    }
+
+    carregarDadosConfiguracao();
+
+    tempInput.addEventListener("input", () => {
+        tempNumber.textContent = tempInput.value + "°C";
+    });
+
+    document.querySelectorAll(".card-option").forEach(card => {
+        card.addEventListener("click", () => {
+            document.querySelectorAll(".card-option").forEach(item => item.classList.remove("selected"));
+            card.classList.add("selected");
+            tipoSelecionado = card.dataset.value || card.innerText.trim();
+        });
+    });
+
+    document.querySelectorAll('[data-group="sol"]').forEach(item => {
+        item.addEventListener("click", () => {
+            document.querySelectorAll('[data-group="sol"]').forEach(opcao => opcao.classList.remove("selected"));
+            item.classList.add("selected");
+            solSelecionado = item.dataset.value;
+        });
+    });
+
+    document.querySelectorAll('[data-group="rega"]').forEach(item => {
+        item.addEventListener("click", () => {
+            document.querySelectorAll('[data-group="rega"]').forEach(opcao => opcao.classList.remove("selected"));
+            item.classList.add("selected");
+            regaSelecionada = item.dataset.value;
+        });
+    });
+
+    salvarBtn.addEventListener("click", async () => {
+        const dadosApi = {
+            usuarioId: Number(usuarioId),
+            nomePlanta: nomeInput.value.trim(),
+            icone: tipoSelecionado || "jiboia", 
+            umidadePlanta: regaSelecionada,
+            tempPlanta: `${tempInput.value}°C`,
+            solPlanta: solSelecionado
+        };
+
+        console.log("Salvando mudanças:", dadosApi);
+
+        try {
+            const resposta = await fetch(
+                `${API_URL}/api/planta/${plantaId}/configurar`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(dadosApi)
+                }
+            );
+
+            if (resposta.ok) {
+                alert("Planta atualizada!");  
+
+                window.location.href = "home.html";
+            } 
+            
+            else {
+                const textoErro = await resposta.text();
+                console.error(`Erro do Servidor [Status ${resposta.status}]:`, textoErro);
+                alert(`Erro ${resposta.status}: Não foi possível salvar as alterações.`);
+            }
         } 
         
-        else {
-            const erro = await resposta.text();
-
-            console.error("Status:", resposta.status);
-            console.error("Erro:", erro);
-
-            alert("Erro ao atualizar planta.");
+        catch (erro) {
+            console.error("Falha na requisição PATCH:", erro);
+            alert("Erro de comunicação com o servidor.");
         }
-
-    } 
-    
-    catch (erro) {
-        console.error(erro);
-
-        alert("Erro na conexão com a API.");
-    }
+    });
 });

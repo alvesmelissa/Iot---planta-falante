@@ -111,6 +111,8 @@ async function carregarHome() {
 
         const dados = await resposta.json();
 
+        localStorage.setItem("dadosPlantaEdicao", JSON.stringify(dados));
+
         const nomeUsuario = localStorage.getItem("nomeUsuario");
 
         document.getElementById("nomeUsuario").textContent =
@@ -284,4 +286,22 @@ btnLogout.addEventListener("click", () => {
     localStorage.removeItem("plantaId");
 
     window.location.href = "login.html";
+});
+
+document.getElementById("editarPlanta").addEventListener("click", (e) => {
+    // 1. Evita o redirecionamento imediato descontrolado do HTML
+    e.preventDefault(); 
+    
+    // 2. Busca o ID ativo recuperado na sessão atual
+    const plantaIdAtiva = localStorage.getItem("plantaId");
+    
+    if (plantaIdAtiva) {
+        console.log("Salvando plantaId de forma síncrona para a edição:", plantaIdAtiva);
+        localStorage.setItem("plantaId", plantaIdAtiva);
+        
+        // 3. Redireciona manualmente com segurança após salvar
+        window.location.href = "editar.html";
+    } else {
+        alert("Ainda estamos carregando as informações da planta. Tente novamente em um instante.");
+    }
 });
