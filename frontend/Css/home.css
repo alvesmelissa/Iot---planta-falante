@@ -348,28 +348,27 @@ body {
     overflow: hidden;
 }
 
+/* atualização da barra de progresso */
 .progresso {
     height: 100%;
     border-radius: 10px;
+    width: 0;
+    transition: width 0.8s ease;
 }
 
-.progresso.amarelo {
-    width: 35%;
+.progresso.amarelo { 
     background: #ffc107;
 }
 
 .progresso.vermelho {
-    width: 15%;
     background: #f44336;
 }
 
 .progresso.verde {
-    width: 70%;
     background: #4caf50;
 }
 
 .progresso.azul {
-    width: 65%;
     background: #2196f3;
 }
 

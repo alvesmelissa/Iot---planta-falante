@@ -11,6 +11,86 @@ if (!plantaId) {
     window.location.href = "quiz.html";
 }
 
+//tornando a barra e status dinâmico
+function atualizarCardsSensores(dados) {
+
+    // umidade do solo
+    const soloStatus = document.getElementById("soloStatus");
+    const barraSolo = document.getElementById("barraSolo");
+
+    barraSolo.style.width = `${dados.umidadeSolo}%`;
+
+    if (dados.umidadeSolo < 20) {
+        soloStatus.textContent = "Muito baixa";
+        soloStatus.className = "status perigo";
+}
+    else if (dados.umidadeSolo < 40) {
+        soloStatus.textContent = "Baixa";
+        soloStatus.className = "status alerta";
+}
+    else if (dados.umidadeSolo <= 80) {
+        soloStatus.textContent = "Ideal";
+        soloStatus.className = "status ideal";
+}
+    else {
+        soloStatus.textContent = "Muito alta";
+        soloStatus.className = "status alerta";
+}
+
+    // umidade do ar
+    const arStatus = document.getElementById("umidadeArStatus");
+    const barraAr = document.getElementById("barraAr");
+
+    barraAr.style.width = `${dados.umidadeAr}%`;
+
+    if (dados.umidadeAr < 30) {
+        arStatus.textContent = "Baixa";
+        arStatus.className = "status alerta";
+    } else {
+        arStatus.textContent = "Boa";
+        arStatus.className = "status ideal";
+    }
+
+    // temperatura
+    const tempStatus = document.getElementById("tempStatus");
+    const barraTemp = document.getElementById("barraTemp");
+
+    const percentualTemp = Math.min((dados.temperatura / 50) * 100, 100);
+
+    barraTemp.style.width = `${percentualTemp}%`;
+
+    if (dados.temperatura < 15) {
+        tempStatus.textContent = "Frio";
+        tempStatus.className = "status alerta";
+    } else if (dados.temperatura > 35) {
+        tempStatus.textContent = "Quente";
+        tempStatus.className = "status perigo";
+    } else {
+        tempStatus.textContent = "Ideal";
+        tempStatus.className = "status ideal";
+    }
+
+    // luminosidade
+    const luzStatus = document.getElementById("luzStatus");
+    const barraLuz = document.getElementById("barraLuz");
+
+    const percentualLuz = Math.min((dados.luminosidade / 1000) * 100, 100);
+
+    barraLuz.style.width = `${percentualLuz}%`;
+
+    if (dados.luminosidade < 300) {
+        luzStatus.textContent = "Baixa";
+        luzStatus.className = "status alerta";
+    } else if (dados.luminosidade > 800) {
+        luzStatus.textContent = "Alta";
+        luzStatus.className = "status alerta";
+    } else {
+        luzStatus.textContent = "Ideal";
+        luzStatus.className = "status ideal";
+    }
+}
+
+
 async function carregarHome() {
     try {
         const resposta = await fetch(
@@ -66,7 +146,10 @@ async function carregarHome() {
 
         document.getElementById("temperatura").textContent = dados.temperatura;
 
-        document.getElementById("luminosidade").textContent = dados.luminosidade;
+        document.getElementById("luminosidade").textContent =  //garantindo que o valor da luminosidade fique apenas com uma casa decimal
+        Number(dados.luminosidade).toFixed(1);
+
+         atualizarCardsSensores(dados); //atualizar dados dos cards
 
         const porcentagem = document.getElementById("porcentagemSaude");  //a porcentagem será decidida a partir do humor da planta, assim como a foto dinâmica
         const barra = document.getElementById("barraSaude");
