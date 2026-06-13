@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar planta</title>
+
+    <link rel="stylesheet" href="../Css/editar.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <div class="logo">
+        <i class="fa-solid fa-leaf"></i>        
+        <h2>PlantCare</h2>
+    </div>
+
+    <nav class="menu">
+        <a href="home.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a href="historico.html">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Histórico
+        </a>
+
+        <a href="login.html">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login 
+        </a>
+
+        <a href="editar.html" class="ativo">
+            <i class="fa-solid fa-user-plus"></i>
+            Editar Planta
+        </a>
+
+    </nav>
+</aside>
+
+<main class="conteudo">
+    <div class="card-edicao">
+
+        <label for="nomePlanta">
+            Nome da Planta
+        </label>
+
+        <input
+            type="text"
+            id="nomePlanta"
+            placeholder="Digite o nome da planta"
+        >
+
+        <h2>Selecione um ícone para sua planta</h2>
+
+        <div class="cards-grid">
+
+            <div class="card-option" data-group="tipo" data-value="babosa">
+                <img src="../img/icones/babosa.png">
+                <span>Babosa</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="bambu">
+                <img src="../img/icones/bambu.png">
+                <span>Bambu</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="cacto">
+                <img src="../img/icones/cacto.png">
+                <span>Cacto</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="carnivora">
+                <img src="../img/icones/carnivora.png">
+                <span>Carnívora</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="costeladeadao">
+                <img src="../img/icones/costeladeadao.png">
+                <span>Costela de Adão</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="espadadesaojorge">
+                <img src="../img/icones/espadadesaojorge.png">
+                <span>Espada de São Jorge</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="girassol">
+                <img src="../img/icones/girassol.png">
+                <span>Girassol</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="hibisco">
+                <img src="../img/icones/hibisco.png">
+                <span>Hibisco</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="jade">
+                <img src="../img/icones/jade.png">
+                <span>Jade</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="jiboia">
+                <img src="../img/icones/jiboia.png">
+                <span>Jiboia</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="lavanda">
+                <img src="../img/icones/lavanda.png">
+                <span>Lavanda</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="liriodapaz">
+                <img src="../img/icones/liriodapaz.png">
+                <span>Lírio da Paz</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="orquidea">
+                <img src="../img/icones/orquidea.png">
+                <span>Orquídea</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="samambaia">
+                <img src="../img/icones/samambaia.png">
+                <span>Samambaia</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="suculenta">
+                <img src="../img/icones/suculenta.png">
+                <span>Suculenta</span>
+            </div>
+
+            <div class="card-option" data-group="tipo" data-value="zamioculca">
+                <img src="../img/icones/zamioculca.png">
+                <span>Zamioculca</span>
+            </div>
+
+        </div>
+
+        <h2>Quantidade de Sol</h2>
+
+        <div class="vertical-options">
+
+            <div class="option"
+                 data-group="sol"
+                 data-value="Pouco Sol">
+                ☁️ Pouco Sol
+            </div>
+
+            <div class="option"
+                 data-group="sol"
+                 data-value="Sol Moderado">
+                ☀️ Sol Moderado
+            </div>
+
+            <div class="option"
+                 data-group="sol"
+                 data-value="Muito Sol">
+                🔥 Muito Sol
+            </div>
+
+        </div>
+
+        <h2>Frequência de Rega</h2>
+
+        <div class="vertical-options">
+
+            <div class="option"
+                 data-group="rega"
+                 data-value="Raramente">
+                💧 Raramente
+            </div>
+
+            <div class="option"
+                 data-group="rega"
+                 data-value="Às vezes">
+                💧💧 Às vezes
+            </div>
+
+            <div class="option"
+                 data-group="rega"
+                 data-value="Frequentemente">
+                💧💧💧 Frequentemente
+            </div>
+
+        </div>
+
+        <h2>Temperatura Ideal</h2>
+
+        <div class="temp-value">
+            <span id="tempNumber">25°C</span>
+        </div>
+
+        <input
+            type="range"
+            id="temperatura"
+            min="10"
+            max="40"
+            value="25"
+        >
+
+        <button id="salvarBtn">
+            Salvar Alterações
+        </button>
+
+    </div>
+
+</main>
+    
+    <script src="../Js/configuracao.js"></script>
+    <script src="../Js/editar.js"></script>
+</body>
+</html>

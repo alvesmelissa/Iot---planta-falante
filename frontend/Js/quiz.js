@@ -278,6 +278,8 @@ console.log("Dados enviados:", dadosApi);
 
             localStorage.setItem("plantaId", dadosResposta.id );
 
+            localStorage.setItem("plantaDados", JSON.stringify(dadosApi));
+
         alert("Perfil criado!");
 
         window.location.href = "home.html";
