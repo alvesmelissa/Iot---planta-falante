@@ -164,26 +164,64 @@ async function carregarHome() {
             "critica"
         );
 
-        if (dados.humor === "FELIZ") {
+        let saude = 100;    //adicionando novas porcentagens para a linha da saúde da planta, ainda leva em conta humor, mas traz novas características, ou seja, novos status.
+        let textoStatus = "Excelente 🌱";
+        let classeStatus = "excelente";
+        let corBarra = "#4caf50";
 
-            porcentagem.textContent = "100%";
+        switch (dados.humor) {
 
-            status.textContent = "Excelente 🌱";
-            status.classList.add("excelente");
+            case "FELIZ":
+                saude = 100;
+                textoStatus = "Excelente 🌱";
+                classeStatus = "excelente";
+                corBarra = "#4caf50";
+                break;
 
-            barra.style.width = "100%";
-            barra.style.background = "#4caf50";
+            case "SEDE":
+                saude = 70;
+                textoStatus = "Boa 💧";
+                classeStatus = "boa";
+                corBarra = "#8bc34a";
+                break;
 
-        } else {
+            case "MUITO_ESCURO":
+            case "MUITO_SOL":
+                saude = 60;
+                textoStatus = "Atenção ☀️";
+                classeStatus = "atencao";
+                corBarra = "#ff9800";
+                break;
 
-            porcentagem.textContent = "40%";
+            case "MUITO_FRIO":
+            case "MUITO_QUENTE":
+                saude = 50;
+                textoStatus = "Atenção 🌡️";
+                classeStatus = "atencao";
+                corBarra = "#ff9800";
+                break;
 
-            status.textContent = "Atenção ⚠️";
-            status.classList.add("atencao");
+            case "MUITO_MOLHADA":
+                saude = 30;
+                textoStatus = "Crítica 🚨";
+                classeStatus = "critica";
+                corBarra = "#f44336";
+                break;
 
-            barra.style.width = "40%";
-            barra.style.background = "#ff9800";
-        }
+            default:
+                saude = 50;
+                textoStatus = "Atenção ⚠️";
+                classeStatus = "atencao";
+                corBarra = "#ff9800";
+    } 
+
+    porcentagem.textContent = `${saude}%`;
+
+    status.textContent = textoStatus;
+    status.classList.add(classeStatus);
+
+    barra.style.width = `${saude}%`;
+    barra.style.background = corBarra;
         
         
         document.getElementById("falaPlanta").textContent = dados.alerta;
@@ -207,6 +245,10 @@ async function carregarHome() {
 
 carregarHome();
 
+// Atualiza os dados da Home a cada 5 minutos assim como acontece com o ESP
+setInterval(carregarHome, 300000);
+
+//quando clicar no botão adicionar planta, vai direto para a quiz
 document.getElementById("btnAdicionarPlanta").addEventListener("click", () => {
     window.location.href = "quiz.html";
 });
